@@ -1,5 +1,5 @@
 all:
-	g++ ./src/*.cpp main.cpp -lncurses -o game
+	g++ ./lib/*.cpp main.cpp -lncurses -o game
 	
 run:
 	./game

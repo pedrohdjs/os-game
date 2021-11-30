@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -15,5 +14,3 @@ class Game {
         void run();
 
 };
-
-#endif
