@@ -1,16 +1,19 @@
 #pragma once
 
+#include <ncurses.h>
+
 #include <iostream>
 #include <string>
 
+#include "./gui/GameGUI.hpp"
 using namespace std;
 
 class Game {
     private:
-        string msg;
+        GameGUI *gui;
+        int target;
 
-    public: 
+    public:
         Game();
         void run();
-
 };

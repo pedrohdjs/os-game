@@ -1,9 +1,12 @@
 #include "./game.hpp"
 
 Game::Game(){
-    this->msg = "Hello, jogo de SO!";
+    this->target = 2500;
+    this->gui = new GameGUI(1);
 }
 
 void Game::run(){
-    cout << this->msg << endl;
+    gui->show();
+    getch();
+    delete gui;
 }
