@@ -1,8 +1,13 @@
-#include <iostream>
+#include <ncurses.h>
+
 #include "./lib/game.hpp"
 
-int main(){
-    Game g = Game();
-    g.run();
+using namespace std;
+
+int main(int argc, char** argv) {
+    initscr();
+    printw("hello ncurses!");
+    getchar();
+    endwin();
     return 0;
 }
