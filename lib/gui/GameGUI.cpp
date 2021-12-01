@@ -11,9 +11,7 @@ GameGUI::GameGUI(int refreshRate)
     delaySize = 1000 / refreshRate;  // 1s/fps
 
     //Inicializa a janela principal
-    this->mainWindow = new MainWindow("Jogo de SO", 30, 150, 0, 0);
-
-    //Cria as sub janelas
+    this->mainWindow = new BorderedWindow("Jogo de SO", WINDOW_HEIGHT, WINDOW_WIDTH, 0, 0);
 
     refresh();
 }

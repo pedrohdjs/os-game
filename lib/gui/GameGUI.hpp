@@ -6,11 +6,14 @@
 #include <iostream>
 #include <string>
 
-#include "./main/main-window.hpp"
+#include "./BorderedWindow.hpp"
+
+#define WINDOW_WIDTH 150
+#define WINDOW_HEIGHT 30
 
 class GameGUI {
     private:
-        MainWindow* mainWindow;
+        BorderedWindow* mainWindow;
 
         int refreshRate;
         int delaySize;

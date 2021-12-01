@@ -1,4 +1,4 @@
-#include "./game.hpp"
+#include "./Game.hpp"
 
 Game::Game(){
     this->target = 2500;
