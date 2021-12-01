@@ -11,9 +11,7 @@ GameGUI::GameGUI(int refreshRate)
     delaySize = 1000 / refreshRate;  // 1s/fps
 
     //Inicializa a janela principal
-    this->mainWindow = newwin(30,150,0,0);
-    box(mainWindow,0,0);
-
+    this->mainWindow = new MainWindow("Jogo de SO", 30, 150, 0, 0);
 
     //Cria as sub janelas
 
@@ -27,13 +25,12 @@ GameGUI::~GameGUI() {
 void GameGUI::show() {
     //cria uma thread para redesenhar as sub janelas
     std::thread drawer(&GameGUI::refresh, this);
-
     drawer.detach();
 }
 
 void GameGUI::refresh() {
     while (true) {
-        wrefresh(this->mainWindow);
+        mainWindow->refresh();
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
     }
 }

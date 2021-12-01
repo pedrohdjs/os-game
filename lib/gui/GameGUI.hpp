@@ -4,10 +4,13 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
+#include <string>
+
+#include "./main/main-window.hpp"
 
 class GameGUI {
     private:
-        WINDOW* mainWindow;
+        MainWindow* mainWindow;
 
         int refreshRate;
         int delaySize;
