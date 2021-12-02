@@ -1,9 +1,7 @@
-#include "./lib/game.hpp"
+#include "./lib/Game.hpp"
 
 int main(int argc, char** argv) {
-    initscr();
     Game g = Game();
     g.run();
-    endwin();
     return 0;
 }

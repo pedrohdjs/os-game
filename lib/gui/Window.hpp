@@ -11,6 +11,8 @@
 class Window {
     protected:
         WINDOW* window;
+        int width;
+        int height;
 
         /**
          * Configuração inicial da janela. Deve ser sobreescrita em janelas mais específicas.

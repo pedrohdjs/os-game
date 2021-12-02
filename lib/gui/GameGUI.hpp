@@ -7,13 +7,13 @@
 #include <string>
 
 #include "./BorderedWindow.hpp"
-
-#define WINDOW_WIDTH 150
-#define WINDOW_HEIGHT 30
+#include "./ProgressBar.hpp"
+#include "./constants.hpp"
 
 class GameGUI {
     private:
         BorderedWindow* mainWindow;
+        ProgressBar* progressBar;
 
         int refreshRate;
         int delaySize;

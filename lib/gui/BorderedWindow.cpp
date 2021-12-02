@@ -16,8 +16,8 @@ BorderedWindow::~BorderedWindow(){
 }
 
 void BorderedWindow::refresh() {
-    wrefresh(container);
     draw();
+    wrefresh(container);
     wrefresh(window);
 }
 
