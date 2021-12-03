@@ -1,0 +1,59 @@
+------------------------------------------------------------
+   S
+    S   Forno 1
+   S
+  / \
+  | |
+|-----| Assando cookies...
+|  O  | 
+|-----| [====     ]
+------------------------------------------------------------
+   
+        Forno 2
+    
+  / \
+  | |
+|-----| Forno disponível, aperte 2 para assar
+|     | 
+|-----| [         ]
+------------------------------------------------------------
+   
+        Forno 3
+    
+  / \
+  | |
+|-----| Forno indispoível, aperte 3 para comprar por 200 cookies
+|  X  |
+|-----| [         ]
+------------------------------------------------------------
+        Funcionário 1
+
+        Disponível
+
+    O   Assa 5 cookies por vez
+   /|\ 
+   / \  Aperte Q para evoluir por 30 cookies
+------------------------------------------------------------
+        Funcionário 2
+
+        Ocupado
+
+    O   Assa 1 cookie por vez
+   /|\ 
+   / \  Aperte W para evoluir por 30 cookies
+------------------------------------------------------------
+        Funcionário 3
+
+        Não comprado
+
+    O   Assa 5 cookies por vez
+   /|\ 
+   / \  Aperte E para comprar por 50 cookies
+------------------------------------------------------------
+
+            acumule 100 cookies para vencer
+
+            30  cookies disponíveis
+            0   clientes esperando
+
+        [               X====           ]
