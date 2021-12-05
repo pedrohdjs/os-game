@@ -1,7 +1,8 @@
 #include "./GameGUI.hpp"
 
-GameGUI::GameGUI(int refreshRate) {
+GameGUI::GameGUI(int refreshRate, int target) {
     this->refreshRate = refreshRate;
+    this->target = target;
 
     //Inicializações da ncurses
     initscr();
@@ -16,7 +17,7 @@ GameGUI::GameGUI(int refreshRate) {
     this->mainWindow = new BorderedWindow("Jogo de SO", WINDOW_HEIGHT, WINDOW_WIDTH, 0, 0);
 
     //Inicializa os outros componentes
-    this->progressBar = new ProgressBar(100);
+    this->mainHUD = new MainHUD(100);
 
     refresh();
 }
@@ -27,14 +28,14 @@ GameGUI::~GameGUI() {
 
 void GameGUI::show() {
     //cria uma thread para redesenhar as sub janelas
-    std::thread drawer(&GameGUI::refresh, this);
+    std::thread drawer(&GameGUI::refresh,this);
     drawer.detach();
 }
 
 void GameGUI::refresh() {
     while (true) {
         mainWindow->refresh();
-        progressBar->refresh();
+        mainHUD->refresh();
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
     }
 }

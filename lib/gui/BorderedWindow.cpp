@@ -5,7 +5,8 @@
 BorderedWindow::BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth)
     : Window(height, width, startHeight, startWidth) {
     this->title = title;
-    container = newwin(height, width, startHeight, startWidth);               //cria um container que possui a caixa
+
+    container = newwin(height, width, startHeight, startWidth); //cria as bordas
     window = newwin(height - 2, width - 2, startHeight + 1, startWidth + 1);  //cria a janela real
     setup();
 }
