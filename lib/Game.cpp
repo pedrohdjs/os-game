@@ -1,12 +1,11 @@
 #include "./Game.hpp"
 
 Game::Game(){
-    this->target = 2500;
-    this->gui = new GameGUI(2,100);
+    this->target = 100;
+    this->gui = new GameGUI(2,target);
 }
 
 void Game::run(){
     gui->show();
-    getch();
     delete gui;
 }

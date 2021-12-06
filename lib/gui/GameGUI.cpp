@@ -19,6 +19,11 @@ GameGUI::GameGUI(int refreshRate, int target) {
     //Inicializa os outros componentes
     this->mainHUD = new MainHUD(100);
 
+    this->ovens = vector<class Oven*>();
+    for(int i = 1; i<=4; i++) {
+        this->ovens.push_back(new Oven(i));
+    }
+
     refresh();
 }
 
@@ -33,12 +38,13 @@ void GameGUI::show() {
 }
 
 void GameGUI::refresh() {
-    int score = -90;
     while (true) {
+        //TODO: obter dados do jogo
         mainWindow->refresh();
         mainHUD->refresh();
+        for(int i = 0; i<ovens.size(); i++) {
+            ovens[i]->refresh();
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
-        mainHUD->setScore(score++);
-
     }
 }

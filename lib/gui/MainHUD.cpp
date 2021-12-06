@@ -8,7 +8,7 @@ MainHUD::MainHUD(int target)
     this->height -= 2;
 
     this->target = target;
-    this->score = -90;
+    this->score = 0;
     this->setup();
 }
 

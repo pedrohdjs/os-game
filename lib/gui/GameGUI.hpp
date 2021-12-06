@@ -5,15 +5,18 @@
 #include <thread>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "./BorderedWindow.hpp"
 #include "./MainHUD.hpp"
+#include "./Oven.hpp"
 #include "./constants.hpp"
 
 class GameGUI {
     private:
         BorderedWindow* mainWindow;
         MainHUD* mainHUD;
+        vector<class Oven*> ovens;
 
         int refreshRate;
         int target;
