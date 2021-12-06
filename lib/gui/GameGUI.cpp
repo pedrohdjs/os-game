@@ -33,9 +33,12 @@ void GameGUI::show() {
 }
 
 void GameGUI::refresh() {
+    int score = -90;
     while (true) {
         mainWindow->refresh();
         mainHUD->refresh();
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
+        mainHUD->setScore(score++);
+
     }
 }

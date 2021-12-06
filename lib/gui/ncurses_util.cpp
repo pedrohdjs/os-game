@@ -1,6 +1,7 @@
 #include "./ncurses_util.hpp"
 
 void wprintwc(WINDOW* w, string s, int y){
+    flushinp();
     int width = getmaxx(w);
     int stringSize = (int)s.size();
     int offset = (width-stringSize)/2;
@@ -8,9 +9,6 @@ void wprintwc(WINDOW* w, string s, int y){
 }
 
 void wclearline(WINDOW* w, int y){
-    int width = 300;
     wmove(w,y,0);
-    for(int i = 0; i<width; i++){
-        mvwprintw(w,y,i," ");
-    }
+    wclrtoeol(w);
 }

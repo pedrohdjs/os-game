@@ -67,8 +67,6 @@ void MainHUD::drawProgressBar(){
 void MainHUD::drawScore(){
     string s;
 
-    score = rand()%201 - 100;
-
     if(score > 0){
         s = "Você tem " + to_string(score) + " cookies";
     }

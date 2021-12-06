@@ -2,6 +2,7 @@
     "files.associations": {
         "ncurses_util.h": "c",
         "ostream": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "chrono": "cpp"
     }
 }
