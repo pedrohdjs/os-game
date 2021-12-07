@@ -22,6 +22,7 @@ GameGUI::GameGUI(int refreshRate, int target) {
     this->ovens = vector<class Oven*>();
     for(int i = 1; i<=4; i++) {
         this->ovens.push_back(new Oven(i));
+        this->cooks.push_back(new Cook(i));
     }
 
     refresh();
@@ -42,8 +43,9 @@ void GameGUI::refresh() {
         //TODO: obter dados do jogo
         mainWindow->refresh();
         mainHUD->refresh();
-        for(int i = 0; i<ovens.size(); i++) {
+        for(int i = 0; i<4; i++) {
             ovens[i]->refresh();
+            cooks[i]->refresh();
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
     }

@@ -10,6 +10,7 @@
 #include "./BorderedWindow.hpp"
 #include "./MainHUD.hpp"
 #include "./Oven.hpp"
+#include "./Cook.hpp"
 #include "./constants.hpp"
 
 class GameGUI {
@@ -17,6 +18,8 @@ class GameGUI {
         BorderedWindow* mainWindow;
         MainHUD* mainHUD;
         vector<class Oven*> ovens;
+        vector<class Cook*> cooks;
+
 
         int refreshRate;
         int target;

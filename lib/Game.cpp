@@ -2,7 +2,7 @@
 
 Game::Game(){
     this->target = 100;
-    this->gui = new GameGUI(2,target);
+    this->gui = new GameGUI(1,target);
 }
 
 void Game::run(){

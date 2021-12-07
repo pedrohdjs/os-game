@@ -7,7 +7,7 @@ Oven::Oven(int id)
     this->height -= 2;
 
     this->id = id;
-    this->status = OVEN_NOT_PURCHASED;
+    this->status = OVEN_BUSY;
 
     this->setup();
 }
@@ -28,9 +28,29 @@ void Oven::refresh(){
 }
 
 void Oven::draw(){
-
+    this->drawInfo();
 }
 
+void Oven::drawInfo(){
+    switch (status)
+    {
+    case OVEN_AVAILABLE:
+        mvwprintw(window, 0, 7, "Forno disponivel");
+        mvwprintw(window, 2, 7, "Aperte %d para assar", id);
+        break;
+
+    case OVEN_BUSY:
+        mvwprintw(window, 0, 7, "Forno ocupado");
+        mvwprintw(window, 4, 7, "Assando cookies...");
+
+    case OVEN_NOT_PURCHASED:
+        mvwprintw(window, 0, 7, "Forno indisponivel");
+        mvwprintw(window, 2, 7, "Compre por 30 cookies", id);
+        mvwprintw(window, 4, 7, "Aperte %d para comprar", id);
+    default:
+        break;
+    }
+}
 
 void Oven::setStatus(int status){
     this->status = status;

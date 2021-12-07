@@ -12,6 +12,8 @@ class Oven : public BorderedWindow {
         int id; //Identificador do forno
         int status; //Estado atual do forno
         float progress; //Progresso da fornada atual
+
+        void drawInfo(); //Imprime informações do forno
         
     public:
         /**
