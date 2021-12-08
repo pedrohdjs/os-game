@@ -1,6 +1,6 @@
-#include "./Oven.hpp"
+#include "./OvenGUI.hpp"
 
-Oven::Oven(int id) 
+OvenGUI::OvenGUI(int id) 
 : BorderedWindow(string("Forno " + to_string(id)), 15, 30, 2, 35*(id-1)+((WINDOW_WIDTH-35*4)/2)) {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     this->width -= 2;
@@ -13,7 +13,7 @@ Oven::Oven(int id)
     this->setup();
 }
 
-void Oven::setup(){
+void OvenGUI::setup(){
     BorderedWindow::setup();
 
     //Desenha o esqueleto do forno
@@ -25,11 +25,11 @@ void Oven::setup(){
     mvwprintw(window, 12, width-1, "]");
 }
 
-void Oven::refresh(){
+void OvenGUI::refresh(){
     BorderedWindow::refresh();
 }
 
-void Oven::draw(){
+void OvenGUI::draw(){
     this->drawInfo();
     if (this->status == OVEN_BUSY){
         this->drawProgressBar();
@@ -37,7 +37,7 @@ void Oven::draw(){
     }
 }
 
-void Oven::drawInfo(){
+void OvenGUI::drawInfo(){
     switch (status)
     {
     case OVEN_AVAILABLE:
@@ -63,7 +63,7 @@ void Oven::drawInfo(){
     }
 }
 
-void Oven::drawProgressBar(){
+void OvenGUI::drawProgressBar(){
     int maxWidth = width - 10;
     int progressWidth = (int)(maxWidth * progress);
     wmove(window, 12, 9);
@@ -76,18 +76,18 @@ void Oven::drawProgressBar(){
     }
 }
 
-void Oven::drawSmoke(){
+void OvenGUI::drawSmoke(){
     if (progress == 0) return;
-    int smokeState = (int)5*progress;
+    int smokeState = (int)6*progress;
     if(smokeState >= 1 && smokeState <= 3) mvwprintw(window, 7, 3, "O");
     if(smokeState >= 2 && smokeState <= 4) mvwprintw(window, 6, 4, "O");
     if(smokeState >= 3 && smokeState <= 5) mvwprintw(window, 5, 3, "O");
 }
 
-void Oven::setStatus(int status){
+void OvenGUI::setStatus(int status){
     this->status = status;
 }
 
-void Oven::setProgress(float progress){
+void OvenGUI::setProgress(float progress){
     this->progress = progress;
 }

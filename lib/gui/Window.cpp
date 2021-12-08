@@ -16,3 +16,7 @@ void Window::refresh() {
     draw();
     wrefresh(window);
 }
+
+WINDOW* Window::getWindow(){
+    return this->window;
+}

@@ -1,6 +1,6 @@
-#include "./Cook.hpp"
+#include "./CookGUI.hpp"
 
-Cook::Cook(int id) 
+CookGUI::CookGUI(int id) 
 : BorderedWindow(string("Funcionario " + to_string(id)), 11, 30, 18, 35*(id-1)+((WINDOW_WIDTH-35*4)/2)) {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     this->width -= 2;
@@ -13,7 +13,7 @@ Cook::Cook(int id)
     this->setup();
 }
 
-void Cook::setup(){
+void CookGUI::setup(){
     BorderedWindow::setup();
 
     //Desenha o funcionario
@@ -22,15 +22,15 @@ void Cook::setup(){
     mvwprintw(window, 8, 0, "/ \\");
 }
 
-void Cook::refresh(){
+void CookGUI::refresh(){
     BorderedWindow::refresh();
 }
 
-void Cook::draw(){
+void CookGUI::draw(){
     this->drawInfo();
 }
 
-void Cook::drawInfo(){
+void CookGUI::drawInfo(){
     char actionKeys[4] = {'Q', 'W', 'E', 'R'};
     
     switch (status)
@@ -55,10 +55,10 @@ void Cook::drawInfo(){
 
 }
 
-void Cook::setStatus(int status){
+void CookGUI::setStatus(int status){
     this->status = status;
 }
 
-void Cook::setSkill(int skill){
+void CookGUI::setSkill(int skill){
     this->skill = skill;
 }

@@ -19,10 +19,10 @@ GameGUI::GameGUI(int refreshRate, int target) {
     //Inicializa os outros componentes
     this->mainHUD = new MainHUD(100);
 
-    this->ovens = vector<class Oven*>();
+    this->ovens = vector<class OvenGUI*>();
     for(int i = 1; i<=4; i++) {
-        this->ovens.push_back(new Oven(i));
-        this->cooks.push_back(new Cook(i));
+        this->ovens.push_back(new OvenGUI(i));
+        this->cooks.push_back(new CookGUI(i));
     }
 
     refresh();
@@ -55,3 +55,19 @@ void GameGUI::refresh() {
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
     }
 }
+
+BorderedWindow* GameGUI::getMainWindow(){
+    return this->mainWindow;
+}
+
+MainHUD* GameGUI::getMainHUD(){
+    return this->mainHUD;
+}
+
+vector<class OvenGUI*> GameGUI::getOvens(){
+    return this->ovens;
+}
+
+vector<class CookGUI*> GameGUI::getCooks(){
+    return this->cooks;
+};

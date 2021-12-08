@@ -31,3 +31,7 @@ void BorderedWindow::setup() {
 void BorderedWindow::draw(){
     
 }
+
+WINDOW* BorderedWindow::getContainer() {
+    return this->container;
+}

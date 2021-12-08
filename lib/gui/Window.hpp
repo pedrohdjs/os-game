@@ -10,14 +10,19 @@
  */
 class Window {
     protected:
-        WINDOW* window;
-        int width;
-        int height;
+        WINDOW* window; //Janela com o conteúdo da janela
+        int width; //Largura da janela
+        int height; //Altura da janela
 
         /**
-         * Configuração inicial da janela. Deve ser sobreescrita em janelas mais específicas.
+         * Configuração inicial da janela, com desenho de partes estáticas.
+         * Deve ser sobreescrita em janelas mais específicas.
          */
         virtual void setup() = 0;
+
+        //Desenho de partes dinâmicas da janela
+        virtual void draw() = 0;
+
 
     public:
         /**
@@ -29,18 +34,12 @@ class Window {
          */
         Window(int height, int width, int startHeight, int startWidth);
 
-        /**
-         * Destrutor da janela
-         */
+        //Destrutor da janela
         ~Window();
 
-        /**
-         * Indica como a janela deve ser desenhada. Deve ser sobreescrita em janelas mais específicas.
-         */
-        virtual void draw() = 0;
-
-        /**
-         * Faz o refresh da janela atualizando de acordo com o que está escrito no buffer.
-         */
+        //Faz o refresh da janela atualizando de acordo com o que está escrito no buffer.
         void refresh();
+
+        //Retorna a janela do ncurses 
+        WINDOW* getWindow();
 };

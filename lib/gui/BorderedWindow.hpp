@@ -6,13 +6,23 @@
 
 #include "./Window.hpp"
 
+using namespace std;
+
+
+/**
+ * @brief Uma janela com borda
+ */
 class BorderedWindow : public Window {
     protected:
 
-        std::string title;
-        WINDOW* container;
+        std::string title; //O título da janela
+        WINDOW* container; //Janela com as bordas da janela
 
+        //Desenha a parte estática da janela
         void setup();
+
+        //Desenha a parte dinâmica da janela
+        void draw();
 
     public:
         /**
@@ -25,18 +35,12 @@ class BorderedWindow : public Window {
          */
         BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth);
 
-        /**
-         * Destrutor da janela
-         */
+        //Destrutor da janela
         ~BorderedWindow();
 
-        /**
-         * Desenha a janela.
-         */
-        void draw();
-
-        /**
-         * Faz o refresh da janela.
-         */
+        //Faz o refresh da janela.
         void refresh();
+
+        //Retorna a janela com as bordas da janela.
+        WINDOW* getContainer();
 };
