@@ -14,6 +14,10 @@ class Oven : public BorderedWindow {
         float progress; //Progresso da fornada atual
 
         void drawInfo(); //Imprime informações do forno
+
+        void drawProgressBar(); //Imprime barra de progresso
+
+        void drawSmoke(); //Imprime fumaça do forno com base no progresso
         
     public:
         /**

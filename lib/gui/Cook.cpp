@@ -1,7 +1,7 @@
 #include "./Cook.hpp"
 
 Cook::Cook(int id) 
-: BorderedWindow(string("Funcionario " + to_string(id)), 11, 30, 14, 35*(id-1)+((WINDOW_WIDTH-35*4)/2)) {
+: BorderedWindow(string("Funcionario " + to_string(id)), 11, 30, 18, 35*(id-1)+((WINDOW_WIDTH-35*4)/2)) {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     this->width -= 2;
     this->height -= 2;

@@ -39,14 +39,19 @@ void GameGUI::show() {
 }
 
 void GameGUI::refresh() {
+    float ovensProgress = 0;
     while (true) {
         //TODO: obter dados do jogo
         mainWindow->refresh();
         mainHUD->refresh();
         for(int i = 0; i<4; i++) {
+            ovens[i]->setProgress(ovensProgress);
             ovens[i]->refresh();
             cooks[i]->refresh();
+            
         }
+        ovensProgress += 0.1;
+        if(ovensProgress > 1.01) ovensProgress = 0;
         std::this_thread::sleep_for(std::chrono::milliseconds(delaySize));
     }
 }
