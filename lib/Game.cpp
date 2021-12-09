@@ -6,6 +6,8 @@ Game::Game(){
 }
 
 void Game::run(){
+    //Usar os getters da gui
+    //gui->getOvens()[0];
     gui->show();
     delete gui;
 }
