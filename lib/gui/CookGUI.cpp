@@ -45,10 +45,13 @@ void CookGUI::drawInfo(){
         mvwprintw(window, 0, 0, "Funcionario ocupado");
         mvwprintw(window, 2, 0, "Faz %d cookies por fornada", skill);
         mvwprintw(window, 4, 0, "Aperte %c para evoluir", actionKeys[id-1]);
+        break;
 
     case COOK_NOT_PURCHASED:
         mvwprintw(window, 0, 0, "Funcionario nao contratado");
         mvwprintw(window, 4, 0, "Aperte %c para comprar", actionKeys[id-1]);
+        break;
+            
     default:
         break;
     }
