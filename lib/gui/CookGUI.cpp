@@ -19,15 +19,31 @@ void CookGUI::setup(){
     //Desenha o funcionario
     mvwprintw(window, 6, 1, "O");
     mvwprintw(window, 7, 0, "/|\\");
-    mvwprintw(window, 8, 0, "/ \\");
+    mvwprintw(window, 8, 0, "/ \\     [");
+    mvwprintw(window, 8, width-1, "]s");
 }
 
 void CookGUI::refresh(){
     BorderedWindow::refresh();
 }
 
+void CookGUI::drawProgressBar() {
+    int maxWidth = width - 10;
+    int progressWidth = (int)(maxWidth * progress);
+    wmove(window, 8, 9);
+    for (int i = 0; i < maxWidth; i++) {
+        if (i < progressWidth) {
+            waddch(window, '=');
+        } else {
+            waddch(window, ' ');
+        }
+    }
+}
+
 void CookGUI::draw(){
-    this->drawInfo();
+
+    drawInfo();
+    drawProgressBar();
 }
 
 void CookGUI::drawInfo(){
@@ -61,4 +77,8 @@ void CookGUI::setStatus(int status){
 
 void CookGUI::setSkill(int skill){
     this->skill = skill;
+}
+
+void CookGUI::setProgress(float progress) {
+    this->progress = progress;
 }

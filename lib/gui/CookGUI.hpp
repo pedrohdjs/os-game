@@ -15,7 +15,8 @@ class CookGUI : public BorderedWindow {
         int id; //Identificador do funcionário. Varia de 1 a 4.
         int status; //Estado atual do funcionário. Devem ser usadas as constantes em gui/constants.hpp.
         int skill; //Nível de habilidade do funcionário.
-        
+        float progress;
+
         //Desenha parte dinâmica do componente visual
         void draw();
 
@@ -24,6 +25,9 @@ class CookGUI : public BorderedWindow {
 
         //Desenha a parte estática do componente visual
         void setup();
+        
+		//Imprime barra de progresso
+        void drawProgressBar(); 
 
     public:
         /**
@@ -40,4 +44,8 @@ class CookGUI : public BorderedWindow {
 
         //Define o progresso da fornada atual
         void setSkill(int skill);
+
+        void setProgress(float progress);
+        
+		void keyboardHandler(char key);
 };
