@@ -1,9 +1,10 @@
 #pragma once
 #include <ncurses.h>
-
+#include <mutex>
 #include <string>
 #include <thread>
 
+#include "./GameStats.hpp"
 #include "./Window.hpp"
 
 using namespace std;
@@ -17,12 +18,15 @@ class BorderedWindow : public Window {
 
         std::string title; //O título da janela
         WINDOW* container; //Janela com as bordas da janela
-
+        static std::mutex drawerMutex;
         //Desenha a parte estática da janela
         void setup();
 
         //Desenha a parte dinâmica da janela
         void draw();
+
+        virtual void onRefresh();
+        void drawLoop();
 
     public:
         /**
@@ -40,6 +44,7 @@ class BorderedWindow : public Window {
 
         //Faz o refresh da janela.
         void refresh();
+        void start();
 
         //Retorna a janela com as bordas da janela.
         WINDOW* getContainer();
