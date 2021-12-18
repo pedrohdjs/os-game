@@ -11,7 +11,7 @@
 #include "./MainHUD.hpp"
 #include "./OvenGUI.hpp"
 #include "./CookGUI.hpp"
-#include "./constants.hpp"
+#include "./GameStats.hpp"
 
 /**
  * @brief Representa e agrega todos os componentes visuais do jogo.
@@ -43,6 +43,8 @@ class GameGUI {
 
         //Inicializa a janela com o seu setup e começa a desenhar
         void show();
+
+        void keyboardHandler();
 
         //Retorna janela principal
         BorderedWindow* getMainWindow();

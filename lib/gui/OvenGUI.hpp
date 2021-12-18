@@ -1,6 +1,6 @@
 #include "./Window.hpp"
 #include "./BorderedWindow.hpp"
-#include "./constants.hpp"
+#include "./GameStats.hpp"
 #include <iostream>
 #include <string>
 
@@ -38,12 +38,13 @@ class OvenGUI : public BorderedWindow {
          */
         OvenGUI(int id);
 
-        //Recarrega o forno
-        void refresh();
-
         //Define o estado do forno
         void setStatus(int status);
 
         //Define o progresso da fornada atual
         void setProgress(float progress);
+
+        void onRefresh();
+
+        void keyboardHandler(char key);
 };
