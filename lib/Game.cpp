@@ -6,6 +6,7 @@ Game::Game(){
 }
 
 void Game::run(){
+    GameStats::start();
     gui->show();
     delete gui;
 }
