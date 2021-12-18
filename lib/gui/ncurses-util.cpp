@@ -1,4 +1,4 @@
-#include "./ncurses_util.hpp"
+#include "./ncurses-util.hpp"
 
 void wprintwc(WINDOW* w, string s, int y){
     flushinp();

@@ -1,10 +1,11 @@
-#include <iostream>
+#pragma once
+
 #include <string>
 
-#include "./BorderedWindow.hpp"
-#include "./GameStats.hpp"
-#include "./Window.hpp"
-#include "./ncurses_util.hpp"
+#include "./bordered-window.hpp"
+#include "../utils/game-stats.hpp"
+#include "./window.hpp"
+#include "./ncurses-util.hpp"
 
 using namespace std;
 

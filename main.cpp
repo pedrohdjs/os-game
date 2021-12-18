@@ -1,4 +1,4 @@
-#include "./lib/Game.hpp"
+#include "./lib/game.hpp"
 
 int main(int argc, char** argv) {
     Game g = Game();

@@ -1,14 +1,14 @@
-#include "./MainHUD.hpp"
+#include "./main-HUD.hpp"
 
 MainHUD::MainHUD(int target)
-    : BorderedWindow("", 7, GameStats::WINDOW_WIDTH / 2, GameStats::WINDOW_HEIGHT - 10, (GameStats::WINDOW_WIDTH / 2) / 2) {
+    : BorderedWindow("", 7, GameStats::WINDOW_WIDTH / 2, GameStats::WINDOW_HEIGHT - 10, (GameStats::WINDOW_WIDTH / 2) / 2),
+	target{target},
+	score{0} {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
-    this->width -= 2;
-    this->height -= 2;
+    width -= 2;
+    height -= 2;
 
-    this->target = target;
-    this->score = 0;
-    this->setup();
+    setup();
 }
 
 void MainHUD::setup() {

@@ -4,8 +4,8 @@
 #include <string>
 #include <thread>
 
-#include "./GameStats.hpp"
-#include "./Window.hpp"
+#include "../utils/game-stats.hpp"
+#include "./window.hpp"
 
 using namespace std;
 

@@ -3,15 +3,14 @@
 
 #include <chrono>
 #include <thread>
-#include <iostream>
 #include <string>
 #include <vector>
 
-#include "./BorderedWindow.hpp"
-#include "./MainHUD.hpp"
-#include "./OvenGUI.hpp"
-#include "./CookGUI.hpp"
-#include "./GameStats.hpp"
+#include "./bordered-window.hpp"
+#include "./main-HUD.hpp"
+#include "../oven/oven.hpp"
+#include "../cooker/cooker.hpp"
+#include "../utils/game-stats.hpp"
 
 /**
  * @brief Representa e agrega todos os componentes visuais do jogo.
@@ -20,12 +19,6 @@ class GameGUI {
     private:
         BorderedWindow* mainWindow; // Janela principal
         MainHUD* mainHUD; //HUD principal com informações de progresso
-        vector<class OvenGUI*> ovens; //Fornos
-        vector<class CookGUI*> cooks; //Funcionários
-
-        int refreshRate; //Taxa de atualização por segundo
-        int target; //Pontuação máxima para vencer o jogo
-        int delaySize; //Tempo entre cada atualização
 
         //Thread responsável por atualizar a janela
         void refresh();
@@ -46,15 +39,4 @@ class GameGUI {
 
         void keyboardHandler();
 
-        //Retorna janela principal
-        BorderedWindow* getMainWindow();
-
-        //Retorna HUD principal com informações de progresso
-        MainHUD* getMainHUD();
-
-        //Retorna interfaces gráficas de fornos
-        vector<class OvenGUI*> getOvens(); 
-
-        //Retorna interfaces gráficas de funcionários
-        vector<class CookGUI*> getCooks();
 };

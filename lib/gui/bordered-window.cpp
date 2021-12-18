@@ -1,10 +1,9 @@
-#include "./BorderedWindow.hpp"
+#include "./bordered-window.hpp"
 
 std::mutex BorderedWindow::drawerMutex;
 
 BorderedWindow::BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth)
-    : Window(height, width, startHeight, startWidth) {
-    this->title = title;
+    : Window(height, width, startHeight, startWidth), title{title} {
 
     container = newwin(height, width, startHeight, startWidth);               //cria as bordas
     window = newwin(height - 2, width - 2, startHeight + 1, startWidth + 1);  //cria a janela real
@@ -48,5 +47,5 @@ void BorderedWindow::draw() {
 }
 
 WINDOW* BorderedWindow::getContainer() {
-    return this->container;
+    return container;
 }

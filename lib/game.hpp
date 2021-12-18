@@ -2,17 +2,16 @@
 
 #include <ncurses.h>
 
-#include <iostream>
 #include <string>
 
-#include "./gui/GameGUI.hpp"
+#include "./gui/game-GUI.hpp"
 
 
 using namespace std;
 
 class Game {
     private:
-        GameGUI *gui;
+        GameGUI gui;
         int target;
 
     public:

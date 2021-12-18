@@ -1,9 +1,14 @@
-#include "GameStats.hpp"
+#include "game-stats.hpp"
 
 int GameStats::numberOfCookies = 0;
 int GameStats::frameRate = 7;
 int GameStats::frameRateDelay = 1000 / 7;
 bool GameStats::running = false;
+int GameStats::target = 100;
+
+std::vector<class Oven*> GameStats::Ovens;
+std::vector<class Cooker*> GameStats::Cooks;
+
 std::mutex GameStats::cookiesMutex;
 
 void GameStats::setFrameRate(int newFrameRate) {
