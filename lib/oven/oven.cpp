@@ -17,7 +17,7 @@ void Oven::ENGINE::keyboardHandler(char key) {
     if (key == actionKeys[oven.id - 1] || key == actionKeys[oven.id - 1] + 32) {
         switch (oven.status) {
             case 0:
-                oven.status = 1;
+                oven.status = GameStats::AVAILABLE;
                 break;
         }
     }
@@ -29,5 +29,17 @@ void Oven::ENGINE::bake(int cookiesToBake) {
 }
 
 int Oven::ENGINE::canBake(int cookiesToBake) {
-    return oven.capacity - cookiesToBake;
+    return (oven.status == GameStats::AVAILABLE) ? oven.capacity - cookiesToBake : -1;
+}
+
+void Oven::ENGINE::logic() {
+    if (oven.status == GameStats::BUSY) {
+        oven.progress += 0.01;
+        if (oven.progress > 1.02) {
+            GameStats::updateNumberOfCookies(oven.currBakingCookies);
+            oven.progress = 0;
+            oven.currBakingCookies = 0;
+            oven.status = GameStats::AVAILABLE;
+        }
+    }
 }

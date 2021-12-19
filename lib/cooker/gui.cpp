@@ -1,7 +1,8 @@
 #include "./cooker.hpp"
 
 Cooker::GUI::GUI(Cooker& cooker, int id)
-    : BorderedWindow(string("Funcionario " + to_string(id)), 11, 30, 18, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2)),
+    : BorderedWindow(std::string("Funcionario " + std::to_string(id)), 11, 30,
+                     18, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2)),
       cooker{cooker} {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
 
@@ -24,6 +25,7 @@ void Cooker::GUI::setup() {
 void Cooker::GUI::drawProgressBar() {
     int maxWidth = width - 10;
     int progressWidth = (int)(maxWidth * cooker.progress);
+
     wmove(window, 8, 9);
     for (int i = 0; i < maxWidth; i++) {
         if (i < progressWidth) {
@@ -36,8 +38,9 @@ void Cooker::GUI::drawProgressBar() {
 
 void Cooker::GUI::draw() {
     drawInfo();
-    drawProgressBar();
-    cooker.engine.logic();
+    if (cooker.status == GameStats::BUSY) {
+        drawProgressBar();
+    }
 }
 
 void Cooker::GUI::onRefresh() {
@@ -49,19 +52,21 @@ void Cooker::GUI::drawInfo() {
 
     switch (cooker.status) {
         case GameStats::AVAILABLE:
-            mvwprintw(window, 0, 0, "Funcionario disponivel    ");
-            mvwprintw(window, 2, 0, "Faz %d cookies por fornada", cooker.skill);
-            mvwprintw(window, 4, 0, "Aperte %c para evoluir", actionKeys[cooker.id - 1]);
+            mvwprintw(window, 0, 0, "Funcionario disponivel      ");
+            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
+            mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
             break;
 
         case GameStats::BUSY:
-            mvwprintw(window, 0, 0, "Fazendo biscoitos...      ");
-            mvwprintw(window, 2, 0, "Faz %d cookies por fornada", cooker.skill);
-            mvwprintw(window, 4, 0, "Aperte %c para evoluir", actionKeys[cooker.id - 1]);
-
+            mvwprintw(window, 0, 0, "Fazendo biscoitos...        ");
+            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
+            mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
+            break;
+			
         case GameStats::NOT_PURCHASED:
-            mvwprintw(window, 0, 0, "Funcionario nao contratado");
-            mvwprintw(window, 4, 0, "Aperte %c para comprar", actionKeys[cooker.id - 1]);
+            mvwprintw(window, 0, 0, "Funcionario nao contratado  ");
+            mvwprintw(window, 2, 0, "                            ");
+            mvwprintw(window, 4, 0, "Aperte %c para comprar      ", actionKeys[cooker.id - 1]);
         default:
             break;
     }
