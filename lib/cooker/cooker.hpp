@@ -2,12 +2,12 @@
 
 #include <string>
 #include <thread>
+#include <mutex>
 
 #include "../gui/bordered-window.hpp"
 #include "../gui/window.hpp"
 #include "../utils/game-stats.hpp"
-
-using namespace std;
+#include "../oven/oven.hpp"
 
 /**
  * @brief Classe que representa a interface gráfica de um funcionário.
@@ -18,6 +18,7 @@ class Cooker {
     int status;  //Estado atual do funcionário. Devem ser usadas as constantes em gui/constants.hpp.
     int skill;   //Nível de habilidade do funcionário.
     float progress = 0;
+    std::mutex goingToBake;
 
     //Desenha parte dinâmica do componente visual
    public:
@@ -44,6 +45,7 @@ class Cooker {
         ENGINE(Cooker& cooker) : cooker{cooker} {};
         void keyboardHandler(char key);
         void logic();
+        void findBestFitOven();
     };
 
     GUI interface;
