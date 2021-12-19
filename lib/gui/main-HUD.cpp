@@ -1,9 +1,7 @@
 #include "./main-HUD.hpp"
 
-MainHUD::MainHUD(int target)
-    : BorderedWindow("", 7, GameStats::WINDOW_WIDTH / 2, GameStats::WINDOW_HEIGHT - 10, (GameStats::WINDOW_WIDTH / 2) / 2),
-	target{target},
-	score{0} {
+MainHUD::MainHUD()
+    : BorderedWindow("", 7, GameStats::WINDOW_WIDTH / 2, GameStats::WINDOW_HEIGHT - 10, (GameStats::WINDOW_WIDTH / 2) / 2) {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     width -= 2;
     height -= 2;
@@ -15,7 +13,7 @@ void MainHUD::setup() {
     BorderedWindow::setup();
 
     //Desenha o esqueleto da barra de progresso
-    wprintwc(window, string("Chegue a " + to_string(target) + " cookies para vencer"), 0);
+    wprintwc(window, std::string("Chegue a " + std::to_string(GameStats::target) + " cookies para vencer"), 0);
     mvwprintw(window, height - 1, 0, "[");
     mvwprintw(window, height - 1, width / 2, "X");
     mvwprintw(window, height - 1, width - 1, "]");
@@ -45,7 +43,7 @@ void MainHUD::drawProgressBar() {
     }
 
     //Calcula o começo e o fim dos '='
-    float progress = (float)score / (float)target;
+    float progress = (float) GameStats::getNumberOfCookies() / (float)GameStats::target;
     int progressWidth = abs((int)(progress * (float)maxProgressWidth));
     int start, end;
     if (progress > 0) {
@@ -63,18 +61,14 @@ void MainHUD::drawProgressBar() {
 }
 
 void MainHUD::drawScore() {
-    string s;
+    std::string s;
 
-    if (score > 0) {
-        s = "Você tem " + to_string(score) + " cookies";
+    if (GameStats::getNumberOfCookies() > 0) {
+        s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " cookies";
     } else {
-        s = "Você tem " + to_string(abs(score)) + " clientes esperando";
+        s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " clientes esperando";
     }
 
     wclearline(window, 2);
     wprintwc(window, s, 2);
-}
-
-void MainHUD::setScore(int score) {
-    this->score = score;
 }

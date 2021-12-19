@@ -16,7 +16,7 @@ BorderedWindow::~BorderedWindow() {
 }
 
 void BorderedWindow::refresh() {
-    std::lock_guard<mutex> lock(drawerMutex);
+    std::lock_guard<std::mutex> lock(drawerMutex);
     draw();
     wrefresh(container);
     wrefresh(window);

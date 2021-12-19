@@ -7,9 +7,6 @@
 #include "../utils/game-stats.hpp"
 #include "./window.hpp"
 
-using namespace std;
-
-
 /**
  * @brief Uma janela com borda
  */

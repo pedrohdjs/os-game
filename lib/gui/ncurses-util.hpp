@@ -4,13 +4,11 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
 /*
-    Imprime uma string no centro de uma janela
+    Imprime uma std::string no centro de uma janela
 */
-void wprintwc(WINDOW* w, string s, int y);
+void wprintwc(WINDOW* w, std::string s, int y);
 
-using namespace std;
 /*
     Limpa uma linha de uma janela
 */

@@ -1,6 +1,6 @@
 #include "./ncurses-util.hpp"
 
-void wprintwc(WINDOW* w, string s, int y){
+void wprintwc(WINDOW* w, std::string s, int y){
     flushinp();
     int width = getmaxx(w);
     int stringSize = (int)s.size();

@@ -2,7 +2,7 @@
 
 
 Oven::GUI::GUI(Oven& oven, int id)
-    : BorderedWindow(string("Forno " + to_string(id)), 15, 30, 2, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2)),
+    : BorderedWindow(std::string("Forno " + std::to_string(id)), 15, 30, 2, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2)),
       oven{oven} {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     width -= 2;
@@ -36,20 +36,21 @@ void Oven::GUI::draw() {
 void Oven::GUI::drawInfo() {
     switch (oven.status) {
         case GameStats::AVAILABLE:
-            mvwprintw(window, 0, 0, "Forno disponivel  ");
-            mvwprintw(window, 2, 0, "Aperte %d para assar  ", oven.id);
+            mvwprintw(window, 0, 0, "Forno disponivel           ");
+            mvwprintw(window, 2, 0, "Aperte %d para assar       ", oven.id);
+            mvwprintw(window, 4, 0, "Capacidade: %d cookies     ", oven.capacity);
             break;
 
         case GameStats::BUSY:
-            mvwprintw(window, 0, 0, "Forno ocupado     ");
-            mvwprintw(window, 4, 0, "Assando cookies...   ");
+            mvwprintw(window, 0, 0, "Forno ocupado              ");
+            mvwprintw(window, 4, 0, "Assando cookies...  %d/%d  ", oven.currBakingCookies, oven.capacity);
             mvwprintw(window, 11, 3, "O");
             break;
 
-        case GameStats::NOT_PURCHASED:
-            mvwprintw(window, 0, 0, "Forno indisponivel");
-            mvwprintw(window, 2, 0, "Compre por 30 cookies", oven.id);
-            mvwprintw(window, 4, 0, "Aperte %d para comprar", oven.id);
+        case GameStats::NOT_PURCHASED: 
+            mvwprintw(window, 0, 0, "Forno indisponivel         ");
+            mvwprintw(window, 2, 0, "Compre por 30 cookies      ", oven.id);
+            mvwprintw(window, 4, 0, "Aperte %d para comprar     ", oven.id);
             mvwprintw(window, 11, 3, "X");
             break;
 
@@ -82,5 +83,5 @@ void Oven::GUI::drawSmoke() {
 
 
 void Oven::GUI::onRefresh() {
-    oven.progress += (oven.progress > 1.0) ? -oven.progress : 0.05;
+    oven.engine.logic();
 }

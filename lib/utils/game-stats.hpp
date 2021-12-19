@@ -8,7 +8,6 @@ class GameStats {
     static int frameRate;
     static int frameRateDelay;
     static bool running;
-    static int target;
     static std::mutex cookiesMutex;
 
    public:
@@ -20,6 +19,7 @@ class GameStats {
     static const int AVAILABLE = 1;
     static const int BUSY = 2;
 
+    static int target;
 
     static std::vector<class Oven*> Ovens;
     static std::vector<class Cooker*> Cooks;

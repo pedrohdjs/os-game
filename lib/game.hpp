@@ -7,8 +7,6 @@
 #include "./gui/game-GUI.hpp"
 
 
-using namespace std;
-
 class Game {
     private:
         GameGUI gui;
