@@ -20,7 +20,7 @@ void Cooker::ENGINE::logic() {
             break;
         case GameStats::AVAILABLE:
             cooker.status = GameStats::BUSY;
-
+            break;
         default:
             break;
     }

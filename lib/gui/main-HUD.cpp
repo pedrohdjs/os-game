@@ -11,12 +11,6 @@ MainHUD::MainHUD()
 
 void MainHUD::setup() {
     BorderedWindow::setup();
-
-    //Desenha o esqueleto da barra de progresso
-    wprintwc(window, std::string("Chegue a " + std::to_string(GameStats::target) + " cookies para vencer"), 0);
-    mvwprintw(window, height - 1, 0, "[");
-    mvwprintw(window, height - 1, width / 2, "X");
-    mvwprintw(window, height - 1, width - 1, "]");
 }
 
 void MainHUD::refresh() {
@@ -24,8 +18,17 @@ void MainHUD::refresh() {
 }
 
 void MainHUD::draw() {
+    drawStaticComponents();
     drawProgressBar();
     drawScore();
+}
+
+void MainHUD::drawStaticComponents(){
+    //Desenha o esqueleto da barra de progresso
+    wprintwc(window, std::string("Chegue a " + std::to_string(GameStats::target) + " cookies para vencer"), 0, false);
+    mvwprintw(window, height - 1, 0, "[");
+    mvwprintw(window, height - 1, width / 2, "X");
+    mvwprintw(window, height - 1, width - 1, "]");
 }
 
 void MainHUD::drawProgressBar() {
@@ -66,9 +69,8 @@ void MainHUD::drawScore() {
     if (GameStats::getNumberOfCookies() > 0) {
         s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " cookies";
     } else {
-        s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " clientes esperando";
+        s = "Você tem " + std::to_string(abs(GameStats::getNumberOfCookies())) + " clientes esperando";
     }
 
-    wclearline(window, 2);
-    wprintwc(window, s, 2);
+    wprintwc(window, s, 2, true);
 }

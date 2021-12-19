@@ -67,6 +67,8 @@ void Cooker::GUI::drawInfo() {
             mvwprintw(window, 0, 0, "Funcionario nao contratado  ");
             mvwprintw(window, 2, 0, "                            ");
             mvwprintw(window, 4, 0, "Aperte %c para comprar      ", actionKeys[cooker.id - 1]);
+            break;
+            
         default:
             break;
     }
