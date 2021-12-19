@@ -4,7 +4,7 @@ GameGUI::GameGUI(int refreshRate, int target) {
     GameStats::setFrameRate(refreshRate);
     //Inicializações da ncurses
     initscr();
-    keypad(stdscr, true);
+    //keypad(stdscr, true);
     curs_set(0);
     noecho();
 
@@ -12,7 +12,7 @@ GameGUI::GameGUI(int refreshRate, int target) {
     mainWindow = new BorderedWindow("Jogo de SO", GameStats::WINDOW_HEIGHT, GameStats::WINDOW_WIDTH, 0, 0);
 
     //Inicializa os outros componentes
-    mainHUD = new MainHUD(100);
+    mainHUD = new MainHUD();
 
     for (int i = 1; i <= 4; i++) {
         GameStats::Ovens.push_back(new Oven(i));
@@ -57,14 +57,16 @@ void GameGUI::refresh() {
 
         std::this_thread::sleep_for(std::chrono::milliseconds(GameStats::getFrameRateDelay()));
     }
+
+	//TODO: dar join em todas as threads antes do jogo encerrar
 }
 
 void GameGUI::keyboardHandler() {
     char key = '\0';
     while (GameStats::isRunning()) {
         key = getch();
-		
-        if (key == ':') {
+
+        if (key == 27) {
             GameStats::end();
             return;
         }
