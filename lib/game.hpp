@@ -14,5 +14,5 @@ class Game {
 
     public:
         Game();
-        void run();
+        bool run();
 };

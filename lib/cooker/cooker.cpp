@@ -60,10 +60,11 @@ void Cooker::ENGINE::keyboardHandler(char key) {
                 }
                 break;
             default:
-                if(GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)){
-                    cooker.skill++;
+                if(cooker.skill < 10){
+                    if(GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)){
+                        cooker.skill++;
+                    }
                 }
-
                 break;
         }
     }

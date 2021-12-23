@@ -66,17 +66,10 @@ void MainHUD::drawProgressBar() {
 void MainHUD::drawScore() {
     std::string s;
     if (GameStats::getNumberOfCookies() > 0) {
-        if (GameStats::getNumberOfCookies() >= GameStats::target){
-            s = "VITÓRIA! Você conseguiu " + std::to_string(GameStats::target) + " cookies";
-        } else {
-            s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " cookies";
-        }
+        s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " cookies";
+
     } else {
-        if (abs(GameStats::getNumberOfCookies()) >= GameStats::target){
-            s = "DERROTA! Você teve " + std::to_string(GameStats::target) + " clientes esperando";
-        } else {
-            s = "Você tem " + std::to_string(abs(GameStats::getNumberOfCookies())) + " clientes esperando";
-        }
+        s = "Você tem " + std::to_string(abs(GameStats::getNumberOfCookies())) + " clientes esperando";
     }
 
     wprintwc(window, s, 2, true);

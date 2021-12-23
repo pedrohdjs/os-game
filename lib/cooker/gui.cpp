@@ -51,28 +51,43 @@ void Cooker::GUI::drawInfo() {
     char actionKeys[4] = {'Q', 'W', 'E', 'R'};
 
     switch (cooker.status) {
-        case GameStats::AVAILABLE:
-            mvwprintw(window, 0, 0, "Funcionario disponivel      ");
-            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
-            mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
-            break;
-
-        case GameStats::BUSY:
-            mvwprintw(window, 0, 0, "Fazendo biscoitos...        ");
-            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
-            mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
-            break;
-			
         case GameStats::NOT_PURCHASED:
             mvwprintw(window, 0, 0, "Funcionario nao contratado  ");
             mvwprintw(window, 2, 0, "Compre por %d cookies       ", cooker.id*5);
             mvwprintw(window, 4, 0, "Aperte %c para comprar      ", actionKeys[cooker.id - 1]);
             break;
+
+        case GameStats::AVAILABLE:
+            mvwprintw(window, 0, 0, "Funcionario disponivel      ");
+            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
+            if(cooker.skill == 10){
+                mvwprintw(window, 4, 0, "Funcionário exemplar!");
+            } else{
+                mvwprintw(window, 4, 0, "Aperte %c para evoluir       ", actionKeys[cooker.id - 1]);
+                mvwprintw(window, 5, 0, "Custo: %d cookies            ", (cooker.skill + 1)*3);
+            }
+            break;
+
+        case GameStats::BUSY:
+            mvwprintw(window, 0, 0, "Fazendo biscoitos...        ");
+            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
+            if(cooker.skill == 10){
+                mvwprintw(window, 4, 0, "Funcionário exemplar!");
+            } else{
+                mvwprintw(window, 4, 0, "Aperte %c para evoluir       ", actionKeys[cooker.id - 1]);
+                mvwprintw(window, 5, 0, "Custo: %d cookies            ", (cooker.skill + 1)*3);
+            }
+            break;
+			
         case GameStats::WAITING:
             mvwprintw(window, 0, 0, "Esperando um forno...       ");
             mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
-            // Evolução custa (skill+1)*3, como fazer caber?
-            mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
+            if(cooker.skill == 10){
+                mvwprintw(window, 4, 0, "Funcionário exemplar!");
+            } else{
+                mvwprintw(window, 4, 0, "Aperte %c para evoluir       ", actionKeys[cooker.id - 1]);
+                mvwprintw(window, 5, 0, "Custo: %d cookies            ", (cooker.skill + 1)*3);
+            }
             break;
             
         default:

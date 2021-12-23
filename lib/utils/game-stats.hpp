@@ -21,6 +21,7 @@ class GameStats {
     static const int WAITING = 3;
 
     static int target;
+    static bool victory;
 
     static std::vector<class Oven*> Ovens;
     static std::vector<class Cooker*> Cooks;
