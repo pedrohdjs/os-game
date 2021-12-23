@@ -11,13 +11,16 @@ void Cooker::start() {
 void Cooker::ENGINE::logic() {
     switch (cooker.status) {
         case GameStats::BUSY:
-
             cooker.progress += 0.02f;
             if (cooker.progress > 1.02f) {
+                cooker.status = GameStats::WAITING;    
                 findBestFitOven();
             }
-
             break;
+        case GameStats::WAITING:
+            findBestFitOven();
+            break;
+
         case GameStats::AVAILABLE:
             cooker.status = GameStats::BUSY;
             break;

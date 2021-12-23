@@ -68,6 +68,11 @@ void Cooker::GUI::drawInfo() {
             mvwprintw(window, 2, 0, "                            ");
             mvwprintw(window, 4, 0, "Aperte %c para comprar      ", actionKeys[cooker.id - 1]);
             break;
+        case GameStats::WAITING:
+            mvwprintw(window, 0, 0, "Esperando um forno...       ");
+            mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
+            mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
+            break;
             
         default:
             break;

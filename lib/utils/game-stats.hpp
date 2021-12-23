@@ -18,6 +18,7 @@ class GameStats {
     static const int NOT_PURCHASED = 0;
     static const int AVAILABLE = 1;
     static const int BUSY = 2;
+    static const int WAITING = 3;
 
     static int target;
 
