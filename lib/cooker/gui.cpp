@@ -65,12 +65,13 @@ void Cooker::GUI::drawInfo() {
 			
         case GameStats::NOT_PURCHASED:
             mvwprintw(window, 0, 0, "Funcionario nao contratado  ");
-            mvwprintw(window, 2, 0, "                            ");
+            mvwprintw(window, 2, 0, "Compre por %d cookies       ", cooker.id*5);
             mvwprintw(window, 4, 0, "Aperte %c para comprar      ", actionKeys[cooker.id - 1]);
             break;
         case GameStats::WAITING:
             mvwprintw(window, 0, 0, "Esperando um forno...       ");
             mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
+            // Evolução custa (skill+1)*3, como fazer caber?
             mvwprintw(window, 4, 0, "Aperte %c para evoluir      ", actionKeys[cooker.id - 1]);
             break;
             

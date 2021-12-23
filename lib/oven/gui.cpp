@@ -49,7 +49,7 @@ void Oven::GUI::drawInfo() {
 
         case GameStats::NOT_PURCHASED: 
             mvwprintw(window, 0, 0, "Forno indisponivel         ");
-            mvwprintw(window, 2, 0, "Compre por 30 cookies      ", oven.id);
+            mvwprintw(window, 2, 0, "Compre por %d cookies      ", (oven.id - 1)*10);
             mvwprintw(window, 4, 0, "Aperte %d para comprar     ", oven.id);
             mvwprintw(window, 11, 3, "X");
             break;

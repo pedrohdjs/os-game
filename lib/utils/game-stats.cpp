@@ -30,7 +30,7 @@ int GameStats::getNumberOfCookies() {
 
 bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
-    if (cookiesToBeAdded + numberOfCookies > 0) {
+    if (cookiesToBeAdded + numberOfCookies >= 0) {
         numberOfCookies += cookiesToBeAdded;
         return true;
     }

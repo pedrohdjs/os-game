@@ -54,11 +54,16 @@ void Cooker::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'Q', 'W', 'E', 'R'};
     if (key == actionKeys[cooker.id - 1] || key == actionKeys[cooker.id - 1] + 32) {
         switch (cooker.status) {
-            case 0:
-                cooker.status = GameStats::AVAILABLE;
+            case GameStats::NOT_PURCHASED:
+                if(GameStats::updateNumberOfCookies((cooker.id) * -5)){
+                    cooker.status = GameStats::AVAILABLE;
+                }
                 break;
             default:
-                cooker.skill++;
+                if(GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)){
+                    cooker.skill++;
+                }
+
                 break;
         }
     }

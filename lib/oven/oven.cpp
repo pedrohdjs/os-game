@@ -15,10 +15,8 @@ void Oven::ENGINE::setStatus(int status) {
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
     if (key == actionKeys[oven.id - 1] || key == actionKeys[oven.id - 1] + 32) {
-        switch (oven.status) {
-            case 0:
+        if((oven.status == GameStats::NOT_PURCHASED) && (GameStats::updateNumberOfCookies((oven.id - 1)* -10))) {
                 oven.status = GameStats::AVAILABLE;
-                break;
         }
     }
 }
