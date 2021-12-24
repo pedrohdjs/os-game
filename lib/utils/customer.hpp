@@ -16,6 +16,7 @@ class Customer {
 
 	public:
 		static int getCustomerRate();
+		static void start();
 		//static int getRateIncrease();
 		//static int getIncreaseTime();
 		static void increaseRate();

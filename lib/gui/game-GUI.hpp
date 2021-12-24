@@ -11,6 +11,7 @@
 #include "../oven/oven.hpp"
 #include "../cooker/cooker.hpp"
 #include "../utils/game-stats.hpp"
+#include "../utils/customer.hpp"
 
 /**
  * @brief Representa e agrega todos os componentes visuais do jogo.

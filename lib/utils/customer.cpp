@@ -29,7 +29,7 @@ void Customer::customerIncrease(){
     while (GameStats::isRunning()) {
         GameStats::customerArrival(customerRate);
 
-        
+
         std::this_thread::sleep_for(std::chrono::milliseconds(customerTime));
     }
 }
