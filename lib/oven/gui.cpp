@@ -37,7 +37,8 @@ void Oven::GUI::drawInfo() {
     switch (oven.status) {
         case GameStats::AVAILABLE:
             mvwprintw(window, 0, 0, "Forno disponivel           ");
-            mvwprintw(window, 2, 0, "Aperte %d para assar       ", oven.id);
+            mvwprintw(window, 2, 0, "Aperte %d para evoluir       ", oven.id);
+            mvwprintw(window, 3, 0, "Custo: 10 Cookies          ");
             mvwprintw(window, 4, 0, "Capacidade: %d cookies     ", oven.capacity);
             break;
 

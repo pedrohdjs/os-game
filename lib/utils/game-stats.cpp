@@ -39,8 +39,16 @@ bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
         }
         return true;
     }
-
     return false;
+}
+
+void GameStats::customerArrival(int numberOfClients) {
+    std::lock_guard<std::mutex> lock(cookiesMutex);
+    numberOfCookies -= numberOfClients;
+    if (numberOfCookies >= -1*target){
+        victory = false;
+        end();
+    }
 }
 
 void GameStats::start() {

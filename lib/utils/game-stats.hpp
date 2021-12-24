@@ -34,6 +34,7 @@ class GameStats {
 
     static int getNumberOfCookies();
     static bool updateNumberOfCookies(int cookiesToBeAdded);
+    static void customerArrival(int numberOfClients);
 
     static void start();
     static bool isRunning();

@@ -12,11 +12,24 @@ void Oven::ENGINE::setStatus(int status) {
     oven.status = status;
 }
 
+
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
     if (key == actionKeys[oven.id - 1] || key == actionKeys[oven.id - 1] + 32) {
+        switch(oven.status){
+            case GameStats::NOT_PURCHASED:
+                if(GameStats::updateNumberOfCookies((oven.id - 1)* -10)){
+                    oven.status = GameStats::AVAILABLE;
+                }
+                break;
+            default:
+                if(GameStats::updateNumberOfCookies(-10)){
+                    oven.capacity += 5;
+                }
+                break;
+
+        }
         if((oven.status == GameStats::NOT_PURCHASED) && (GameStats::updateNumberOfCookies((oven.id - 1)* -10))) {
-                oven.status = GameStats::AVAILABLE;
         }
     }
 }

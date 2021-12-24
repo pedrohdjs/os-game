@@ -21,6 +21,7 @@ void MainHUD::draw() {
     drawStaticComponents();
     drawProgressBar();
     drawScore();
+    drawDemand();
 }
 
 void MainHUD::drawStaticComponents(){
@@ -73,4 +74,10 @@ void MainHUD::drawScore() {
     }
 
     wprintwc(window, s, 2, true);
+}
+
+void MainHUD::drawDemand() {
+    std::string s;
+    s = " Clientes por segundo: " + std::to_string(Customer::getCustomerRate());
+    wprintwc(window, s, 1, true);
 }
