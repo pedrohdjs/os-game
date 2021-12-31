@@ -60,7 +60,7 @@ void Cooker::GUI::drawInfo() {
         case GameStats::AVAILABLE:
             mvwprintw(window, 0, 0, "Funcionario disponivel      ");
             mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
-            if(cooker.skill == 10){
+            if(cooker.skill == 10){ // if(cooker.skill == GameStats::getMaxCapacity()){
                 mvwprintw(window, 4, 0, "Funcionário exemplar!");
             } else{
                 mvwprintw(window, 4, 0, "Aperte %c para evoluir       ", actionKeys[cooker.id - 1]);
@@ -71,7 +71,7 @@ void Cooker::GUI::drawInfo() {
         case GameStats::BUSY:
             mvwprintw(window, 0, 0, "Fazendo biscoitos...        ");
             mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
-            if(cooker.skill == 10){
+            if(cooker.skill == 10){ // if(cooker.skill == GameStats::getMaxCapacity()){
                 mvwprintw(window, 4, 0, "Funcionário exemplar!");
             } else{
                 mvwprintw(window, 4, 0, "Aperte %c para evoluir       ", actionKeys[cooker.id - 1]);
@@ -82,7 +82,7 @@ void Cooker::GUI::drawInfo() {
         case GameStats::WAITING:
             mvwprintw(window, 0, 0, "Esperando um forno...       ");
             mvwprintw(window, 2, 0, "Faz %d cookies por fornada  ", cooker.skill);
-            if(cooker.skill == 10){
+            if(cooker.skill == 10){ // if(cooker.skill == GameStats::getMaxCapacity()){
                 mvwprintw(window, 4, 0, "Funcionário exemplar!");
             } else{
                 mvwprintw(window, 4, 0, "Aperte %c para evoluir       ", actionKeys[cooker.id - 1]);

@@ -44,6 +44,7 @@ class Oven {
         void logic();
         void setStatus(int status);
         int getStatus();
+        int getCapacity();
         void bake(int cookiesToBake);
         int canBake(int cookiesToBake);
     };

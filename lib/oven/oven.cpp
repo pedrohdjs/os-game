@@ -12,6 +12,13 @@ void Oven::ENGINE::setStatus(int status) {
     oven.status = status;
 }
 
+int Oven::ENGINE::getStatus() {
+    return oven.status;
+}
+
+int Oven::ENGINE::getCapacity() {
+    return oven.capacity;
+}
 
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
