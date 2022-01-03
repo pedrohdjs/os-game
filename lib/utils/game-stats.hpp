@@ -31,9 +31,7 @@ class GameStats {
     static void setFrameRate(int newFrameRate);
     static int getFrameRate();
     static int getFrameRateDelay();
-
-    static int getMaxCapacity();
-
+    
     static int getNumberOfCookies();
     static bool updateNumberOfCookies(int cookiesToBeAdded);
     static void customerArrival(int numberOfClients);

@@ -60,7 +60,7 @@ void Cooker::ENGINE::keyboardHandler(char key) {
                 }
                 break;
             default:
-                if(cooker.skill < 10) { // if(cooker.skill < GameStats::getMaxCapacity()) {
+                if(cooker.skill < (GameStats::Ovens[0]->engine.getMaxCapacity())){
                     if(GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)){
                         cooker.skill++;
                     }

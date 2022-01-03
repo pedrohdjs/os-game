@@ -29,18 +29,6 @@ int GameStats::getNumberOfCookies() {
     return numberOfCookies;
 }
 
-/*
-int GameStats::getMaxCapacity(){
-    int max = 0;
-    for (auto oven : Ovens) {
-        if( oven->engine.getStatus() && (max <= oven->engine.getCapacity())){
-            max = oven->engine.getCapacity();
-        }
-    }
-    return max;
-}
-*/
-
 bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
     if (cookiesToBeAdded + numberOfCookies >= 0) {
@@ -57,7 +45,7 @@ bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
 void GameStats::customerArrival(int numberOfClients) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
     numberOfCookies -= numberOfClients;
-    if (numberOfCookies >= -1*target){
+    if (numberOfCookies <= -1*target){
         victory = false;
         end();
     }

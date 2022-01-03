@@ -20,6 +20,16 @@ int Oven::ENGINE::getCapacity() {
     return oven.capacity;
 }
 
+int Oven::ENGINE::getMaxCapacity() {
+    int max = oven.capacity;
+    for (auto oven : GameStats::Ovens) {   
+        if( oven->engine.getStatus() && (max <= oven->engine.getCapacity())){
+            max = oven->engine.getCapacity();
+        }
+    }
+    return max;
+}
+
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
     if (key == actionKeys[oven.id - 1] || key == actionKeys[oven.id - 1] + 32) {
