@@ -1,12 +1,17 @@
 #include "game-stats.hpp"
 
 int GameStats::numberOfCookies = 0;
-std::atomic<int> GameStats::numberOfThreads(0);
 int GameStats::frameRate = 7;
 int GameStats::frameRateDelay = 1000 / 7;
+int GameStats::target = 1000;
+
+int GameStats::CURRENT_HEIGHT = 0;
+int GameStats::CURRENT_WIDTH = 0;
+
 bool GameStats::running = false;
-int GameStats::target = 100;
 bool GameStats::victory = false;
+
+std::atomic<int> GameStats::numberOfThreads(0);
 
 std::vector<class Oven*> GameStats::Ovens;
 std::vector<class Cooker*> GameStats::Cooks;
@@ -32,21 +37,29 @@ int GameStats::getNumberOfCookies() {
 
 bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
+    if (!GameStats::isRunning()) return false;
+
     if (cookiesToBeAdded + numberOfCookies >= 0) {
         numberOfCookies += cookiesToBeAdded;
-        if (numberOfCookies >= target){
+
+        if (numberOfCookies >= target) {
             victory = true;
             end();
         }
+
         return true;
     }
+
     return false;
 }
 
 void GameStats::customerArrival(int numberOfClients) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
+    if (!GameStats::isRunning()) return;
+
     numberOfCookies -= numberOfClients;
-    if (numberOfCookies <= -1*target){
+
+    if (numberOfCookies <= -1 * target) {
         victory = false;
         end();
     }
@@ -74,4 +87,15 @@ void GameStats::removeThread() {
 
 int GameStats::getNumberOfThreads() {
     return numberOfThreads;
+}
+
+void GameStats::detectTerminalResize() {
+    int newHeight, newWidth;
+    getmaxyx(stdscr, newHeight, newWidth);
+    if (newHeight != GameStats::CURRENT_HEIGHT || newWidth != GameStats::CURRENT_WIDTH) {
+        clear();
+        refresh();
+		GameStats::CURRENT_HEIGHT = newHeight;
+        GameStats::CURRENT_WIDTH = newWidth;
+    }
 }

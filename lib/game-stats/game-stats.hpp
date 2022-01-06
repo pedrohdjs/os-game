@@ -3,6 +3,8 @@
 #include <vector>
 #include <atomic>
 #include <thread>
+#include <ncurses.h>
+
 class GameStats {
    private:
     static int numberOfCookies;
@@ -21,8 +23,13 @@ class GameStats {
     static const int AVAILABLE = 1;
     static const int BUSY = 2;
     static const int WAITING = 3;
+    static const int RESTING  = 4;
+    
+	static int CURRENT_HEIGHT;
+    static int CURRENT_WIDTH;
 
     static int target;
+	
     static bool victory;
 
 
@@ -44,5 +51,6 @@ class GameStats {
     static void end();
     static void addThread();
     static void removeThread();
-    static int getNumberOfThreads();
+	static int getNumberOfThreads();
+    static void detectTerminalResize();
 };
