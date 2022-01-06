@@ -1,6 +1,7 @@
 #include "game-stats.hpp"
 
 int GameStats::numberOfCookies = 0;
+std::atomic<int> GameStats::numberOfThreads(0);
 int GameStats::frameRate = 7;
 int GameStats::frameRateDelay = 1000 / 7;
 bool GameStats::running = false;
@@ -61,4 +62,16 @@ bool GameStats::isRunning() {
 
 void GameStats::end() {
     running = false;
+}
+
+void GameStats::addThread() {
+    numberOfThreads++;
+}
+
+void GameStats::removeThread() {
+    numberOfThreads--;
+}
+
+int GameStats::getNumberOfThreads() {
+    return numberOfThreads;
 }

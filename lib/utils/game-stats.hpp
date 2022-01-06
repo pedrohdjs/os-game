@@ -1,7 +1,8 @@
 #pragma once
 #include <mutex>
 #include <vector>
-
+#include <atomic>
+#include <thread>
 class GameStats {
    private:
     static int numberOfCookies;
@@ -9,6 +10,7 @@ class GameStats {
     static int frameRateDelay;
     static bool running;
     static std::mutex cookiesMutex;
+    static std::atomic<int> numberOfThreads;
 
    public:
     // constantes do jogo
@@ -22,6 +24,7 @@ class GameStats {
 
     static int target;
     static bool victory;
+
 
     static std::vector<class Oven*> Ovens;
     static std::vector<class Cooker*> Cooks;
@@ -39,4 +42,7 @@ class GameStats {
     static void start();
     static bool isRunning();
     static void end();
+    static void addThread();
+    static void removeThread();
+    static int getNumberOfThreads();
 };
