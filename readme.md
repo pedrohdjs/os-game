@@ -1,10 +1,10 @@
 # Trabalho SSC0140 - Sistemas Operacionais I (2021-2)
 
 ## Alunos
-- Bruno
-- Matheus
+- Bruno Germano do Nascimento - 10893131
+- Matheus Vieira Gonçalves - 11200397
 - Pedro Henrique Dias Junqueira de Souza - 11294312
-- Tarcidio
+- Tarcídio Antônio Júnior - 10748347
 
 ## Explicações
 
