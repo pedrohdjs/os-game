@@ -22,8 +22,6 @@ class BorderedWindow : public Window {
         //Desenha a parte dinâmica da janela
         void draw();
 
-        virtual void onRefresh();
-        void drawLoop();
 
     public:
         /**
@@ -41,7 +39,6 @@ class BorderedWindow : public Window {
 
         //Faz o refresh da janela.
         void refresh();
-        void start();
 
         //Retorna a janela com as bordas da janela.
         WINDOW* getContainer();

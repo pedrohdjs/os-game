@@ -43,10 +43,6 @@ void Cooker::GUI::draw() {
     }
 }
 
-void Cooker::GUI::onRefresh() {
-    cooker.engine.logic();
-}
-
 void Cooker::GUI::drawInfo() {
     char actionKeys[4] = {'Q', 'W', 'E', 'R'};
 

@@ -18,24 +18,9 @@ BorderedWindow::~BorderedWindow() {
 void BorderedWindow::refresh() {
     std::lock_guard<std::mutex> lock(drawerMutex);
     draw();
+    setup();
     wrefresh(container);
     wrefresh(window);
-}
-
-void BorderedWindow::start() {
-    std::thread drawer(&BorderedWindow::drawLoop, this);
-    drawer.detach();
-}
-
-void BorderedWindow::drawLoop() {
-    while (GameStats::isRunning()) {
-        refresh();
-        onRefresh();
-        std::this_thread::sleep_for(std::chrono::milliseconds(GameStats::getFrameRateDelay()));
-    }
-}
-
-void BorderedWindow::onRefresh() {
 }
 
 void BorderedWindow::setup() {
