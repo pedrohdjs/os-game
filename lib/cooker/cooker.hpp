@@ -6,7 +6,7 @@
 
 #include "../gui/bordered-window.hpp"
 #include "../gui/window.hpp"
-#include "../utils/game-stats.hpp"
+#include "../game-stats/game-stats.hpp"
 #include "../oven/oven.hpp"
 
 /**
@@ -18,7 +18,7 @@ class Cooker {
     int status;  //Estado atual do funcionário. Devem ser usadas as constantes em gui/constants.hpp.
     int skill;   //Nível de habilidade do funcionário.
     float progress = 0;
-    std::mutex goingToBake;
+    static std::mutex goingToBake;
 
     //Desenha parte dinâmica do componente visual
    public:
@@ -30,9 +30,9 @@ class Cooker {
        public:
         GUI(Cooker& cooker, int id);
         void draw();
+        void setup();
         void drawInfo();
         void drawProgressBar();
-        void setup();
     };
 
     class ENGINE {
@@ -47,6 +47,7 @@ class Cooker {
         void findBestFitOven();
     };
 
+    void setStatus(int newStatus);
     GUI interface;
     ENGINE engine;
 

@@ -1,7 +1,7 @@
 #include "./oven.hpp"
 
 Oven::Oven(int id) : interface{*this, id}, engine{*this}, id{id}, capacity{10}, progress{0} {
-    status = (id == 1) ? GameStats::AVAILABLE : GameStats::NOT_PURCHASED;
+    setStatus((id == 1) ? GameStats::AVAILABLE : GameStats::NOT_PURCHASED);
 }
 
 void Oven::start() {
@@ -16,8 +16,9 @@ void Oven::start() {
     GameStats::addThread();
 }
 
-void Oven::ENGINE::setStatus(int status) {
-    oven.status = status;
+void Oven::setStatus(int newStatus) {
+    interface.clear();
+    status = newStatus;
 }
 
 int Oven::ENGINE::getStatus() {
@@ -44,7 +45,7 @@ void Oven::ENGINE::keyboardHandler(char key) {
         switch (oven.status) {
             case GameStats::NOT_PURCHASED:
                 if (GameStats::updateNumberOfCookies((oven.id - 1) * -10)) {
-                    oven.status = GameStats::AVAILABLE;
+                    oven.setStatus(GameStats::AVAILABLE);
                 }
                 break;
             default:
@@ -60,7 +61,7 @@ void Oven::ENGINE::keyboardHandler(char key) {
 
 void Oven::ENGINE::bake(int cookiesToBake) {
     oven.currBakingCookies = cookiesToBake;
-    oven.status = GameStats::BUSY;
+    oven.setStatus(GameStats::BUSY);
 }
 
 int Oven::ENGINE::canBake(int cookiesToBake) {
@@ -69,12 +70,12 @@ int Oven::ENGINE::canBake(int cookiesToBake) {
 
 void Oven::ENGINE::logic() {
     if (oven.status == GameStats::BUSY) {
-        oven.progress += 0.01;
+        oven.progress += 0.03;
         if (oven.progress > 1.02) {
             GameStats::updateNumberOfCookies(oven.currBakingCookies);
             oven.progress = 0;
             oven.currBakingCookies = 0;
-            oven.status = GameStats::AVAILABLE;
+            oven.setStatus(GameStats::AVAILABLE);
         }
     }
 }

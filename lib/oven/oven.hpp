@@ -4,7 +4,7 @@
 
 #include "../gui/bordered-window.hpp"
 #include "../gui/window.hpp"
-#include "../utils/game-stats.hpp"
+#include "../game-stats/game-stats.hpp"
 
 /**
  * @brief Interface gráfica do forno
@@ -41,7 +41,6 @@ class Oven {
         ENGINE(Oven& oven) : oven{oven} {};
         void keyboardHandler(char key);
         void logic();
-        void setStatus(int status);
         int getStatus();
         int getCapacity();
         int getMaxCapacity();
@@ -49,6 +48,7 @@ class Oven {
         int canBake(int cookiesToBake);
     };
 
+    void setStatus(int status);
     GUI interface;
     ENGINE engine;
 
