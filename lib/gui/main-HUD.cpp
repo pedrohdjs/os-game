@@ -9,14 +9,6 @@ MainHUD::MainHUD()
     setup();
 }
 
-void MainHUD::setup() {
-    BorderedWindow::setup();
-}
-
-void MainHUD::refresh() {
-    BorderedWindow::refresh();
-}
-
 void MainHUD::draw() {
     drawStaticComponents();
     drawProgressBar();
@@ -66,18 +58,18 @@ void MainHUD::drawProgressBar() {
 
 void MainHUD::drawScore() {
     std::string s;
-    if (GameStats::getNumberOfCookies() > 0) {
+    if (GameStats::getNumberOfCookies() >= 0) {
         s = "Você tem " + std::to_string(GameStats::getNumberOfCookies()) + " cookies";
 
     } else {
         s = "Você tem " + std::to_string(abs(GameStats::getNumberOfCookies())) + " clientes esperando";
     }
 
-    wprintwc(window, s, 2, true);
+    wprintwc(window, s, 2, false);
 }
 
 void MainHUD::drawDemand() {
     std::string s;
     s = " Clientes por segundo: " + std::to_string(Customer::getCustomerRate());
-    wprintwc(window, s, 1, true);
+    wprintwc(window, s, 1, false);
 }

@@ -36,7 +36,7 @@ void Oven::GUI::draw() {
 void Oven::GUI::drawInfo() {
     switch (oven.status) {
         case GameStats::AVAILABLE:
-            mvwprintw(window, 0, 0, "Forno disponivel           ");
+            mvwprintw(window, 0, 0, "Forno disponível           ");
             mvwprintw(window, 2, 0, "Aperte %d para evoluir       ", oven.id);
             mvwprintw(window, 3, 0, "Custo: 10 Cookies          ");
             mvwprintw(window, 4, 0, "Capacidade: %d cookies     ", oven.capacity);
@@ -49,9 +49,9 @@ void Oven::GUI::drawInfo() {
             break;
 
         case GameStats::NOT_PURCHASED: 
-            mvwprintw(window, 0, 0, "Forno indisponivel         ");
+            mvwprintw(window, 0, 0, "Forno indisponível         ");
             mvwprintw(window, 2, 0, "Compre por %d cookies      ", (oven.id - 1)*10);
-            mvwprintw(window, 4, 0, "Aperte %d para comprar     ", oven.id);
+            mvwprintw(window, 4, 0, "Aperte %d para comprar     ", GameStats::getNumberOfThreads());
             mvwprintw(window, 11, 3, "X");
             break;
 
@@ -82,7 +82,3 @@ void Oven::GUI::drawSmoke() {
     mvwprintw(window, 5, 3, smokeState >= 3 && smokeState <= 5 ? "O" : " ");
 }
 
-
-void Oven::GUI::onRefresh() {
-    oven.engine.logic();
-}

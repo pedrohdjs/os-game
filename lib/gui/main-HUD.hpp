@@ -21,8 +21,6 @@ class MainHUD : public BorderedWindow {
     //Desenha parte dinâmica do componente
     void draw();
 
-    //Desenha as bordas da janela
-    void setup();
 
    public:
     /**
@@ -30,8 +28,5 @@ class MainHUD : public BorderedWindow {
          * @param target o alvo de pontuação que deve ser atingido para vencer
          */
     MainHUD();
-
-    //Recarrega a janela.
-    void refresh();
 
 };

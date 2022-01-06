@@ -30,7 +30,7 @@ class GameGUI {
         * @param refreshRate indica quantas vezes por segundo a janela deve ser desenhada
         * @param target indica o número de pontos que deve ser alcançado ao fim do jogo
         */
-        GameGUI(int refreshRate, int target);
+        GameGUI(int refreshRate);
         
         //Destrutor da janela
         ~GameGUI();
