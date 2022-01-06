@@ -8,7 +8,6 @@ Oven::GUI::GUI(Oven& oven, int id)
     width -= 2;
     height -= 2;
 
-    setup();
 }
 
 
@@ -16,18 +15,19 @@ void Oven::GUI::setup() {
     BorderedWindow::setup();
 
     //Desenha o esqueleto do forno
-    mvwprintw(window, 8, 2, "/ \\");
-    mvwprintw(window, 9, 2, "| |");
-    mvwprintw(window, 10, 0, "|-----|");
-    mvwprintw(window, 11, 0, "|     |");
-    mvwprintw(window, 12, 0, "|-----| [");
-    mvwprintw(window, 12, width - 1, "]");
+    mvwprintw(window, 9, 3, "/ \\");
+    mvwprintw(window, 10, 3, "| |");
+    mvwprintw(window, 11, 1, "|-----|");
+    mvwprintw(window, 12, 1, "|     |");
+    mvwprintw(window, 13, 1, "|-----| [");
+    mvwprintw(window, 13, width , "]");
 }
 
 void Oven::GUI::draw() {
+
     drawInfo();
+    drawProgressBar();
     if (oven.status == GameStats::BUSY) {
-        drawProgressBar();
         drawSmoke();
     }
 }
@@ -36,23 +36,23 @@ void Oven::GUI::draw() {
 void Oven::GUI::drawInfo() {
     switch (oven.status) {
         case GameStats::AVAILABLE:
-            mvwprintw(window, 0, 0, "Forno disponível           ");
-            mvwprintw(window, 2, 0, "Aperte %d para evoluir       ", oven.id);
-            mvwprintw(window, 3, 0, "Custo: 10 Cookies          ");
-            mvwprintw(window, 4, 0, "Capacidade: %d cookies     ", oven.capacity);
+            mvwprintw(window, 2, 1, "Forno disponível           ");
+            mvwprintw(window, 3, 1, "Aperte %d para evoluir       ", oven.id);
+            mvwprintw(window, 4, 1, "Custo: 10 Cookies          ");
+            mvwprintw(window, 5, 1, "Capacidade: %d cookies     ", oven.capacity);
             break;
 
         case GameStats::BUSY:
-            mvwprintw(window, 0, 0, "Forno ocupado              ");
-            mvwprintw(window, 4, 0, "Assando cookies...  %d/%d  ", oven.currBakingCookies, oven.capacity);
-            mvwprintw(window, 11, 3, "O");
+            mvwprintw(window, 2, 1, "Forno ocupado              ");
+            mvwprintw(window, 5, 1, "Assando cookies...  %d/%d  ", oven.currBakingCookies, oven.capacity);
+            mvwprintw(window, 12, 4, "O");
             break;
 
         case GameStats::NOT_PURCHASED: 
-            mvwprintw(window, 0, 0, "Forno indisponível         ");
-            mvwprintw(window, 2, 0, "Compre por %d cookies      ", (oven.id - 1)*10);
-            mvwprintw(window, 4, 0, "Aperte %d para comprar     ", GameStats::getNumberOfThreads());
-            mvwprintw(window, 11, 3, "X");
+            mvwprintw(window, 2, 1, "Forno indisponível         ");
+            mvwprintw(window, 3, 1, "Compre por %d cookies      ", (oven.id - 1)*10);
+            mvwprintw(window, 6, 1, "Aperte %d para comprar     ", oven.id);
+            mvwprintw(window, 12, 4, "X");
             break;
 
         default:
@@ -64,7 +64,8 @@ void Oven::GUI::drawInfo() {
 void Oven::GUI::drawProgressBar() {
     int maxWidth = width - 10;
     int progressWidth = (int)(maxWidth * oven.progress);
-    wmove(window, 12, 9);
+
+    wmove(window, 13, 10);
     for (int i = 0; i < maxWidth; i++) {
         if (i < progressWidth) {
             waddch(window, '=');
@@ -77,8 +78,8 @@ void Oven::GUI::drawProgressBar() {
 void Oven::GUI::drawSmoke() {
     if (oven.progress == 0) return;
     int smokeState = (int)6 * oven.progress;
-    mvwprintw(window, 7, 3, smokeState >= 1 && smokeState <= 3 ? "O" : " ");
-    mvwprintw(window, 6, 4, smokeState >= 2 && smokeState <= 4 ? "O" : " ");
-    mvwprintw(window, 5, 3, smokeState >= 3 && smokeState <= 5 ? "O" : " ");
+    mvwprintw(window, 8, 4, smokeState >= 1 && smokeState <= 3 ? "O" : " ");
+    mvwprintw(window, 7, 5, smokeState >= 2 && smokeState <= 4 ? "O" : " ");
+    mvwprintw(window, 6, 4, smokeState >= 3 && smokeState <= 5 ? "O" : " ");
 }
 

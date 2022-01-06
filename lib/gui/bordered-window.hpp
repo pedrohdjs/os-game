@@ -4,7 +4,7 @@
 #include <string>
 #include <thread>
 
-#include "../utils/game-stats.hpp"
+#include "../game-stats/game-stats.hpp"
 #include "./window.hpp"
 
 /**
@@ -14,10 +14,9 @@ class BorderedWindow : public Window {
     protected:
 
         std::string title; //O título da janela
-        WINDOW* container; //Janela com as bordas da janela
+        WINDOW* window; 
         static std::mutex drawerMutex;
         //Desenha a parte estática da janela
-        void setup();
 
         //Desenha a parte dinâmica da janela
         void draw();
@@ -40,6 +39,6 @@ class BorderedWindow : public Window {
         //Faz o refresh da janela.
         void refresh();
 
-        //Retorna a janela com as bordas da janela.
-        WINDOW* getContainer();
+        void setup();
+        void clear();
 };
