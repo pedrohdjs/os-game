@@ -5,7 +5,17 @@ Cooker::Cooker(int id) : interface{*this, id}, engine{*this}, id{id}, skill{5} {
 }
 
 void Cooker::start() {
-    interface.start();
+
+    std::thread cookerLogic([&]() {
+        while (GameStats::isRunning()) {
+            engine.logic();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    	GameStats::removeThread();
+    });
+
+    cookerLogic.detach();
+    GameStats::addThread();
 }
 
 void Cooker::ENGINE::logic() {
@@ -13,7 +23,7 @@ void Cooker::ENGINE::logic() {
         case GameStats::BUSY:
             cooker.progress += 0.02f;
             if (cooker.progress > 1.02f) {
-                cooker.status = GameStats::WAITING;    
+                cooker.status = GameStats::WAITING;
                 findBestFitOven();
             }
             break;
@@ -30,6 +40,7 @@ void Cooker::ENGINE::logic() {
 }
 
 void Cooker::ENGINE::findBestFitOven() {
+    std::lock_guard<std::mutex> lock(cooker.goingToBake);
     int bestFitIdx = 0;
     int bestFitValue = GameStats::Ovens[0]->engine.canBake(cooker.skill);
 
@@ -45,9 +56,7 @@ void Cooker::ENGINE::findBestFitOven() {
         GameStats::Ovens[bestFitIdx]->engine.bake(cooker.skill);
         cooker.status = GameStats::AVAILABLE;
         cooker.progress = 0;
-    } else {
-        //exit(0);
-    }
+    } 
 }
 
 void Cooker::ENGINE::keyboardHandler(char key) {
@@ -55,13 +64,13 @@ void Cooker::ENGINE::keyboardHandler(char key) {
     if (key == actionKeys[cooker.id - 1] || key == actionKeys[cooker.id - 1] + 32) {
         switch (cooker.status) {
             case GameStats::NOT_PURCHASED:
-                if(GameStats::updateNumberOfCookies((cooker.id) * -5)){
+                if (GameStats::updateNumberOfCookies((cooker.id) * -5)) {
                     cooker.status = GameStats::AVAILABLE;
                 }
                 break;
             default:
-                if(cooker.skill < (GameStats::Ovens[0]->engine.getMaxCapacity())){
-                    if(GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)){
+                if (cooker.skill < (GameStats::Ovens[0]->engine.getMaxCapacity())) {
+                    if (GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)) {
                         cooker.skill++;
                     }
                 }

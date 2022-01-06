@@ -1,35 +1,43 @@
 #include "./customer.hpp"
 
-int Customer::customerRate = 1;
-int Customer::rateIncrease = 6;
-int Customer::increaseTime = 900;
-int Customer::customerTime = 100;
+int Customer::customerRate = 8;
+int Customer::rateIncrease = 8;
+int Customer::increaseTime = 15000;
+int Customer::customerTime = 1000;
 
-int Customer::getCustomerRate(){
-	return customerRate;
+int Customer::getCustomerRate() {
+    return customerRate;
 }
 
-/*int Customer::getRateIncrease(){
-	return rateIncrease;
+void Customer::start() {
+    increaseRate();
+    customerIncrease();
 }
 
-int Customer::getIncreaseTime(){
-	return increaseTime;
-}*/
+void Customer::increaseRate() {
 
-void Customer::increaseRate(){
-    while (GameStats::isRunning()) {
-    	customerRate += rateIncrease;
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(increaseTime));
-    }
+    std::thread customerRateThread([&]() {
+        while (GameStats::isRunning()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(increaseTime));
+            customerRate += rateIncrease;
+        }
+        GameStats::removeThread();
+    });
+	
+    customerRateThread.detach();
+    GameStats::addThread();
 }
 
-void Customer::customerIncrease(){
-    while (GameStats::isRunning()) {
-        GameStats::customerArrival(customerRate);
+void Customer::customerIncrease() {
 
+    std::thread customerCounter([]() {
+        while (GameStats::isRunning()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(customerTime));
+            GameStats::customerArrival(customerRate);
+        }
+        GameStats::removeThread();
+    });
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(customerTime));
-    }
+    customerCounter.detach();
+    GameStats::addThread();
 }

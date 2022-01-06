@@ -4,7 +4,6 @@
 #include <thread>
 #include <string>
 #include <vector>
-
 #include "./game-stats.hpp"
 
 class Customer {

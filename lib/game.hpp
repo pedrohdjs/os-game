@@ -9,10 +9,12 @@
 
 class Game {
     private:
-        GameGUI gui;
+        GameGUI* gui;
         int target;
 
     public:
         Game();
-        bool run();
+        ~Game();
+        void run();
+        void resize();
 };

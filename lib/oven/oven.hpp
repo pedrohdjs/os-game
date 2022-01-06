@@ -27,7 +27,6 @@ class Oven {
         GUI(Oven& oven, int id);
         void draw();
         void drawInfo();
-        void onRefresh();
         void drawSmoke();
         void drawProgressBar();
         void setup();

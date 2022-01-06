@@ -5,7 +5,15 @@ Oven::Oven(int id) : interface{*this, id}, engine{*this}, id{id}, capacity{10}, 
 }
 
 void Oven::start() {
-    interface.start();
+    std::thread customerRateThread([&]() {
+        while (GameStats::isRunning()) {
+            engine.logic();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+        GameStats::removeThread();
+    });
+    customerRateThread.detach();
+    GameStats::addThread();
 }
 
 void Oven::ENGINE::setStatus(int status) {
@@ -22,8 +30,8 @@ int Oven::ENGINE::getCapacity() {
 
 int Oven::ENGINE::getMaxCapacity() {
     int max = oven.capacity;
-    for (auto oven : GameStats::Ovens) {   
-        if( oven->engine.getStatus() && (max <= oven->engine.getCapacity())){
+    for (auto oven : GameStats::Ovens) {
+        if (oven->engine.getStatus() && (max <= oven->engine.getCapacity())) {
             max = oven->engine.getCapacity();
         }
     }
@@ -33,20 +41,19 @@ int Oven::ENGINE::getMaxCapacity() {
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
     if (key == actionKeys[oven.id - 1] || key == actionKeys[oven.id - 1] + 32) {
-        switch(oven.status){
+        switch (oven.status) {
             case GameStats::NOT_PURCHASED:
-                if(GameStats::updateNumberOfCookies((oven.id - 1)* -10)){
+                if (GameStats::updateNumberOfCookies((oven.id - 1) * -10)) {
                     oven.status = GameStats::AVAILABLE;
                 }
                 break;
             default:
-                if(GameStats::updateNumberOfCookies(-10)){
+                if (GameStats::updateNumberOfCookies(-10)) {
                     oven.capacity += 5;
                 }
                 break;
-
         }
-        if((oven.status == GameStats::NOT_PURCHASED) && (GameStats::updateNumberOfCookies((oven.id - 1)* -10))) {
+        if ((oven.status == GameStats::NOT_PURCHASED) && (GameStats::updateNumberOfCookies((oven.id - 1) * -10))) {
         }
     }
 }

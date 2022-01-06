@@ -31,7 +31,6 @@ class Cooker {
         GUI(Cooker& cooker, int id);
         void draw();
         void drawInfo();
-        void onRefresh();
         void drawProgressBar();
         void setup();
     };

@@ -1,12 +1,21 @@
 #include "./game.hpp"
 
-Game::Game() : gui{7, 100} {
-    //target = 100;
+Game::Game() {
+    gui = new GameGUI(7);
 }
 
-bool Game::run() {
+void Game::run() {
     GameStats::start();
-    gui.show();
+    gui->show();
+}
 
-    return GameStats::victory;
+void Game::resize() {
+    //gui->show();
+}
+
+Game::~Game() {
+    GameStats::end();
+    while (GameStats::getNumberOfThreads() > 0)
+        ;
+    delete gui;
 }
