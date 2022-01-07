@@ -15,7 +15,7 @@ void resize(int) {
 int main(int argc, char** argv) {
     newGame = new Game();
 
-	std::signal(SIGWINCH, resize);
+	//std::signal(SIGWINCH, resize);
     std::signal(SIGINT, killGame);
     std::signal(SIGTERM, killGame);
     std::signal(SIGHUP, killGame);

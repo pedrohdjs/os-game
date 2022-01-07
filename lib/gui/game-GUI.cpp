@@ -8,9 +8,9 @@ GameGUI::GameGUI(int refreshRate) {
     curs_set(0);
     noecho();
     clear();
-    nodelay(stdscr, true);
+    //nodelay(stdscr, true);
     //Inicializa a janela principal
-    mainWindow = new BorderedWindow("Jogo de SO", GameStats::WINDOW_HEIGHT, GameStats::WINDOW_WIDTH, 0, 0);
+    mainWindow = new BorderedWindow("Jogo de SO", GameStats::WINDOW_HEIGHT - 1, GameStats::WINDOW_WIDTH - 1, 0, 0);
 
     //Inicializa os outros componentes
     mainHUD = new MainHUD();
@@ -19,8 +19,6 @@ GameGUI::GameGUI(int refreshRate) {
         GameStats::Ovens.push_back(new Oven(i));
         GameStats::Cooks.push_back(new Cooker(i));
     }
-
-    Customer::start();
 }
 
 GameGUI::~GameGUI() {
@@ -35,7 +33,16 @@ GameGUI::~GameGUI() {
 }
 
 void GameGUI::show() {
-    
+    int cols, rows;
+
+    while (GameStats::CURRENT_WIDTH < GameStats::WINDOW_WIDTH || GameStats::CURRENT_HEIGHT < GameStats::WINDOW_HEIGHT) {
+        terminalSizeScreen();
+
+        GameStats::detectTerminalResize();
+        doupdate();
+        std::this_thread::sleep_for(std::chrono::milliseconds(GameStats::getFrameRateDelay()));
+    }
+
     for (auto& cook : GameStats::Cooks) {
         cook->start();
     }
@@ -43,32 +50,70 @@ void GameGUI::show() {
     for (auto& oven : GameStats::Ovens) {
         oven->start();
     }
-	
-    std::thread drawer(&GameGUI::refresh, this);
+
+    std::thread drawer(&GameGUI::refreshLoop, this);
     std::thread keyboardListener(&GameGUI::keyboardHandler, this);
 
     GameStats::addThread();
     GameStats::addThread();
 
-    keyboardListener.detach();
-    drawer.join();
-
+    drawer.detach();
+    keyboardListener.join();
 }
 
 void GameGUI::refresh() {
+    mainWindow->refresh();
+    mainHUD->refresh();
+
+    for (auto& cook : GameStats::Cooks) {
+        cook->interface.refresh();
+    }
+
+    for (auto& oven : GameStats::Ovens) {
+        oven->interface.refresh();
+    }
+}
+
+void GameGUI::setup() {
+    //mainWindow->setup();
+    mainHUD->setup();
+
+    for (auto& cook : GameStats::Cooks) {
+        cook->interface.setup();
+    }
+
+    for (auto& oven : GameStats::Ovens) {
+        oven->interface.setup();
+    }
+}
+
+void GameGUI::terminalSizeScreen() {
+    std::stringstream message;
+
+    wprintwc(stdscr, "Por favor redimensione seu terminal!!", GameStats::CURRENT_HEIGHT / 2 - 1, false);
+
+    message << "Tamanho minimo: " << GameStats::WINDOW_WIDTH << " X " << GameStats::WINDOW_HEIGHT;
+    wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2, false);
+    message.str("");
+
+    message << "Tamanho atual: " << GameStats::CURRENT_WIDTH << " X " << GameStats::CURRENT_HEIGHT;
+    wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2 + 1, false);
+
+    wnoutrefresh(stdscr);
+}
+
+void GameGUI::refreshLoop() {
+    clear();
     while (GameStats::isRunning()) {
-        //clear();
-        mainWindow->refresh();
-        mainHUD->refresh();
+        GameStats::detectTerminalResize();
 
-        for (auto& cook : GameStats::Cooks) {
-            cook->interface.refresh();
+        if (GameStats::CURRENT_WIDTH < GameStats::WINDOW_WIDTH || GameStats::CURRENT_HEIGHT < GameStats::WINDOW_HEIGHT) {
+            terminalSizeScreen();
+        } else {
+            setup();
+            refresh();
         }
-
-        for (auto& oven : GameStats::Ovens) {
-            oven->interface.refresh();
-        }
-
+        doupdate();
         std::this_thread::sleep_for(std::chrono::milliseconds(GameStats::getFrameRateDelay()));
     }
 
@@ -76,15 +121,11 @@ void GameGUI::refresh() {
 }
 
 void GameGUI::keyboardHandler() {
-    char key = '\0';
+    int key = '\0';
     while (GameStats::isRunning()) {
-        key = wgetch(stdscr);
+        timeout(100);
+        key = getch();
         if (key != ERR) {
-            if (key == 27) {
-                GameStats::end();
-                return;
-            }
-
             for (auto& oven : GameStats::Ovens) {
                 oven->engine.keyboardHandler(key);
             }
@@ -92,8 +133,11 @@ void GameGUI::keyboardHandler() {
             for (auto& cook : GameStats::Cooks) {
                 cook->engine.keyboardHandler(key);
             }
+
+            if (key == KEY_RESIZE) {
+            }
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
     GameStats::removeThread();

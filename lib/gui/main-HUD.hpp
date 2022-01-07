@@ -1,10 +1,11 @@
 #pragma once
 
 #include <string>
+#include <sstream>
 
 #include "./bordered-window.hpp"
-#include "../utils/game-stats.hpp"
-#include "../utils/customer.hpp"
+#include "../game-stats/game-stats.hpp"
+#include "../customers/customers.hpp"
 #include "./window.hpp"
 #include "./ncurses-util.hpp"
 
