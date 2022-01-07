@@ -43,7 +43,7 @@ void Cooker::GUI::draw() {
 }
 
 void Cooker::GUI::drawInfo() {
-    char actionKeys[4] = {'Q', 'W', 'E', 'R'};
+    char actionKeys[4] = {'q', 'w', 'e', 'r'};
 
     switch (cooker.status) {
         case GameStats::NOT_PURCHASED:

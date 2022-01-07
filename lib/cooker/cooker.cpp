@@ -74,8 +74,8 @@ void Cooker::ENGINE::findBestFitOven() {
 }
 
 void Cooker::ENGINE::keyboardHandler(char key) {
-    char actionKeys[4] = {'Q', 'W', 'E', 'R'};
-    if (key == actionKeys[cooker.id - 1] || key == actionKeys[cooker.id - 1] + 32) {
+    char actionKeys[4] = {'q', 'w', 'e', 'r'};
+    if (key == actionKeys[cooker.id - 1]) {
         switch (cooker.status) {
             case GameStats::NOT_PURCHASED:
                 if (GameStats::updateNumberOfCookies((cooker.id) * -5)) {

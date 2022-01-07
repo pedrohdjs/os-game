@@ -41,7 +41,7 @@ int Oven::ENGINE::getMaxCapacity() {
 
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
-    if (key == actionKeys[oven.id - 1] || key == actionKeys[oven.id - 1] + 32) {
+    if (key == actionKeys[oven.id - 1]) {
         switch (oven.status) {
             case GameStats::NOT_PURCHASED:
                 if (GameStats::updateNumberOfCookies((oven.id - 1) * -10)) {
