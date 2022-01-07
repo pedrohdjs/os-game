@@ -10,10 +10,13 @@ Cooker::GUI::GUI(Cooker& cooker, int id, WINDOW* parentWindow)
     height -= 2;
 }
 
-void Cooker::GUI::setup() {
-    BorderedWindow::setup();
+void Cooker::GUI::draw() {
+    body();
+    drawInfo();
+    drawProgressBar();
+}
 
-    //Desenha o funcionario
+void Cooker::GUI::body() {
     mvwprintw(window, 7, 2, "O");
     mvwprintw(window, 8, 1, "/|\\");
     mvwprintw(window, 9, 1, "/ \\     [");
@@ -26,17 +29,8 @@ void Cooker::GUI::drawProgressBar() {
 
     wmove(window, 9, 10);
     for (int i = 0; i < maxWidth; i++) {
-        if (i < progressWidth) {
-            waddch(window, '=');
-        } else {
-            waddch(window, ' ');
-        }
+        waddch(window, i < progressWidth ? '=' : ' ');
     }
-}
-
-void Cooker::GUI::draw() {
-    drawInfo();
-    drawProgressBar();
 }
 
 void Cooker::GUI::drawInfo() {
@@ -44,55 +38,43 @@ void Cooker::GUI::drawInfo() {
 
     switch (cooker.status) {
         case GameStats::NOT_PURCHASED:
-            mvwprintw(window, 1, 1, "Cozinheiro nao contratado");
-            mvwprintw(window, 3, 1, "Compre por %d cookies    ", cooker.id * 5);
-            mvwprintw(window, 5, 1, "Aperte %c para comprar", actionKeys[cooker.id - 1]);
+            mvwprintw(window, 1, 1, "Cozinheiro nao contratado\t \t \t \t");
+            mvwprintw(window, 3, 1, "Contrate por %d cookies \t \t \t \t", cooker.id * 5);
+            mvwprintw(window, 5, 1, "Aperte %c para contratar \t \t \t \t", actionKeys[cooker.id - 1]);
             break;
 
         case GameStats::AVAILABLE:
-            mvwprintw(window, 1, 1, "Cozinheiro disponível");
-            mvwprintw(window, 3, 1, "Faz %d cookies por fornada", cooker.skill);
-            if (cooker.skill == (GameStats::Ovens[0]->engine.getMaxCapacity())) {
-                mvwprintw(window, 5, 1, "Cozinheiro exemplar!");
-            } else {
-                mvwprintw(window, 5, 1, "Aperte %c para evoluir", actionKeys[cooker.id - 1]);
-                mvwprintw(window, 6, 1, "Custo: %d cookies", (cooker.skill + 1) * 3);
-            }
+            mvwprintw(window, 1, 1, "Cozinheiro disponível \t \t \t \t \t");
+            drawUpgradeMessage();
             break;
         case GameStats::RESTING:
-            mvwprintw(window, 1, 1, "Cozinheiro descansando   ");
-            mvwprintw(window, 3, 1, "Faz %d cookies por fornada", cooker.skill);
-            if (cooker.skill == (GameStats::Ovens[0]->engine.getMaxCapacity())) {
-                mvwprintw(window, 5, 1, "Cozinheiro exemplar!    ");
-            } else {
-                mvwprintw(window, 5, 1, "Aperte %c para evoluir   ", actionKeys[cooker.id - 1]);
-                mvwprintw(window, 6, 1, "Custo: %d cookies        ", (cooker.skill + 1) * 3);
-            }
+            mvwprintw(window, 1, 1, "Cozinheiro descansando \t \t \t \t \t");
+            drawUpgradeMessage();
             break;
 
         case GameStats::BUSY:
-            mvwprintw(window, 1, 1, "Fazendo biscoitos...     ");
-            mvwprintw(window, 3, 1, "Faz %d cookies por fornada", cooker.skill);
-            if (cooker.skill == (GameStats::Ovens[0]->engine.getMaxCapacity())) {
-                mvwprintw(window, 5, 1, "Cozinheiro exemplar!  ");
-            } else {
-                mvwprintw(window, 5, 1, "Aperte %c para evoluir", actionKeys[cooker.id - 1]);
-                mvwprintw(window, 6, 1, "Custo: %d cookies     ", (cooker.skill + 1) * 3);
-            }
+            mvwprintw(window, 1, 1, "Fazendo biscoitos... \t \t \t \t \t");
+            drawUpgradeMessage();
             break;
 
         case GameStats::WAITING:
-            mvwprintw(window, 1, 1, "Esperando um forno...     ");
-            mvwprintw(window, 3, 1, "Faz %d cookies por fornada", cooker.skill);
-            if (cooker.skill == (GameStats::Ovens[0]->engine.getMaxCapacity())) {
-                mvwprintw(window, 5, 1, "Cozinheiro exemplar!  ");
-            } else {
-                mvwprintw(window, 5, 1, "Aperte %c para evoluir", actionKeys[cooker.id - 1]);
-                mvwprintw(window, 6, 1, "Custo: %d cookies     ", (cooker.skill + 1) * 3);
-            }
+            mvwprintw(window, 1, 1, "Esperando um forno... \t \t \t \t \t");
+            drawUpgradeMessage();
             break;
 
         default:
             break;
+    }
+}
+
+void Cooker::GUI::drawUpgradeMessage() {
+    char actionKeys[4] = {'q', 'w', 'e', 'r'};
+    mvwprintw(window, 3, 1, "Faz %d cookies por fornada \t \t \t \t", cooker.skill);
+    if (cooker.skill == (GameStats::Ovens[0]->engine.getMaxCapacity())) {
+        mvwprintw(window, 4, 1, "Cozinheiro exemplar! \t\t\t\t");
+        mvwprintw(window, 5, 1, "\t \t \t \t \t \t \t");
+    } else {
+        mvwprintw(window, 4, 1, "Aperte %c para evoluir\t \t \t", actionKeys[cooker.id - 1]);
+        mvwprintw(window, 5, 1, "Custo: %d cookies \t \t \t", (cooker.skill + 1) * 3);
     }
 }

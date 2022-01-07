@@ -6,18 +6,17 @@ Cooker::Cooker(int id, WINDOW* parentWindow) : interface{*this, id, parentWindow
     setStatus((id == 1) ? GameStats::AVAILABLE : GameStats::NOT_PURCHASED);
 }
 
-void Cooker::setStatus(int newStatus){
+void Cooker::setStatus(int newStatus) {
     status = newStatus;
 }
 
 void Cooker::start() {
-
     std::thread cookerLogic([&]() {
         while (GameStats::isRunning()) {
             engine.logic();
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
-    	GameStats::removeThread();
+        GameStats::removeThread();
     });
 
     cookerLogic.detach();
@@ -29,7 +28,7 @@ void Cooker::ENGINE::logic() {
         case GameStats::BUSY:
             cooker.progress += 0.05f;
             if (cooker.progress > 1.02f) {
-                cooker.setStatus( GameStats::WAITING);
+                cooker.setStatus(GameStats::WAITING);
                 findBestFitOven();
             }
             break;
@@ -41,7 +40,7 @@ void Cooker::ENGINE::logic() {
             cooker.setStatus(GameStats::BUSY);
             break;
         case GameStats::RESTING:
-            cooker.progress += 0.1f;
+            cooker.progress += 0.07f;
             if (cooker.progress > 1.1f) {
                 cooker.setStatus(GameStats::AVAILABLE);
                 cooker.progress = 0;
@@ -69,7 +68,7 @@ void Cooker::ENGINE::findBestFitOven() {
         GameStats::Ovens[bestFitIdx]->engine.bake(cooker.skill);
         cooker.setStatus(GameStats::RESTING);
         cooker.progress = 0;
-    } 
+    }
 }
 
 void Cooker::ENGINE::keyboardHandler(char key) {
@@ -84,7 +83,7 @@ void Cooker::ENGINE::keyboardHandler(char key) {
             default:
                 if (cooker.skill < (GameStats::Ovens[0]->engine.getMaxCapacity())) {
                     if (GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)) {
-                        cooker.skill+=5;
+                        cooker.skill += 5;
                     }
                 }
                 break;

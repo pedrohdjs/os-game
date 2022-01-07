@@ -132,10 +132,11 @@ class Oven {
 	 * @brief Construtor da classe OvenGUI. O forno é inicializado como não comprado.
 	 * 
 	 * @param id Identificador do forno.
+	 * @param parentWindow janela pai
 	 */
     Oven(int id, WINDOW* parentWindow);
 
-	/**
+    /**
 	 * @brief Inicializa loop da lógica do forno
 	 */
     void start();
