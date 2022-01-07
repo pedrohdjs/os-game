@@ -5,6 +5,9 @@ MainHUD::MainHUD(WINDOW* parentWindow)
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     width -= 2;
     height -= 2;
+
+    //Ignora os caracteres '│', '│', [', ']' e 'X'
+    maxProgressWidth = (width - 5) / 2 + 1;
 }
 
 void MainHUD::draw() {
@@ -23,10 +26,29 @@ void MainHUD::drawStaticComponents() {
 }
 
 void MainHUD::drawProgressBar() {
-    //Ignora os caracteres '│', '│', [', ']' e 'X'
-    int maxProgressWidth = (width - 5) / 2 + 1;
+    clearProgressBar();
+    updateCurrProgress();
 
-    //Limpa a barra de progresso
+    int progressWidth = abs((int)(currProgress * (float)maxProgressWidth));
+
+    //define o inicio e o fim da barra
+
+    int start = (currProgress > 0) ? width / 2 + 2 : (width / 2 + 1) - progressWidth;
+    int end = (currProgress > 0) ? start + progressWidth : width / 2 + 1;
+
+    //Imprime os '='
+    char printedChar = '=';
+    for (int i = start; i < end; i++) {
+
+     	printedChar = '=';
+        printedChar = (i == start && currProgress < 0) ? '<' : printedChar;
+        printedChar = (i == end - 1 && currProgress > 0) ? '>' : printedChar;
+
+        mvwprintw(window, height, i, "%c", printedChar);
+    }
+}
+
+void MainHUD::clearProgressBar() {
     wmove(window, height, 2);
     for (int i = 0; i < maxProgressWidth; i++) {
         wprintw(window, " ");
@@ -36,38 +58,13 @@ void MainHUD::drawProgressBar() {
     for (int i = 0; i < maxProgressWidth; i++) {
         wprintw(window, " ");
     }
+}
 
-    //Calcula o começo e o fim dos '='
-    float progress = (float)GameStats::getNumberOfCookies() / (float)GameStats::target;
+void MainHUD::updateCurrProgress() {
+    currProgress = (float)GameStats::getNumberOfCookies() / (float)GameStats::target;
 
-    progress = (progress >= 1.0) ? 1 : progress;
-    progress = (progress <= -1.0) ? -1 : progress;
-
-    int progressWidth = abs((int)(progress * (float)maxProgressWidth));
-
-    int start, end;
-
-    if (progress > 0) {
-        start = width / 2 + 2;
-        end = start + progressWidth;
-    } else {
-        start = (width / 2 + 1) - progressWidth;
-        end = width / 2 + 1;
-    }
-
-    //Imprime os '='
-    char printedChar = '\0';
-
-    for (int i = start; i < end; i++) {
-        if (i == start && progress < 0) {
-            printedChar = '<';
-        } else if (i == end - 1 && progress > 0) {
-            printedChar = '>';
-        } else {
-            printedChar = '=';
-        }
-        mvwprintw(window, height, i, "%c", printedChar);
-    }
+    currProgress = (currProgress >= 1.0) ? 1 : currProgress;
+    currProgress = (currProgress <= -1.0) ? -1 : currProgress;
 }
 
 void MainHUD::drawScore() {

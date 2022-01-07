@@ -1,33 +1,61 @@
 #pragma once
 
-#include <string>
 #include <sstream>
+#include <string>
 
-#include "./bordered-window.hpp"
-#include "../game-stats/game-stats.hpp"
 #include "../customers/customers.hpp"
-#include "./window.hpp"
+#include "../game-stats/game-stats.hpp"
+#include "./bordered-window.hpp"
 #include "./ncurses-util.hpp"
+#include "./window.hpp"
 
 /**
  * @brief Interface gráfica do HUD principal do jogo.
  */
 class MainHUD : public BorderedWindow {
    private:
-    void drawProgressBar();      //Desenha a barra de progresso
-    void drawScore();            //Escreve a std::string da pontuação atual
-    void drawDemand();           //Escreve clientes por segundo que entram na loja
-    void drawStaticComponents(); //Desenha a parte estática do componente
+    int maxProgressWidth;  //Tamanho máximo da barra de progresso;
+    float currProgress;    // progresso atual da barra;
 
-    //Desenha parte dinâmica do componente
+    /**
+	 * @brief Desenha a barra de progresso
+	 */
+    void drawProgressBar();
+
+    /**
+	 * @brief Escreve a pontuação atual 
+	 */
+    void drawScore();
+
+    /**
+	 * @brief Imprime a quantidade de clientes por segundo que entram na loja 
+	 */
+    void drawDemand();
+
+    /**
+	 * @brief Desenha a parte estática do componente 
+	 */
+    void drawStaticComponents();
+
+    /**
+	 * @brief Apaga a antiga barra de progresso 
+	 */
+    void clearProgressBar();
+
+    /**
+	 * @brief Atualiza o progresso da barra 
+	 */
+    void updateCurrProgress();
+
+    /**
+	 * @brief Desenha o componente
+	 */
     void draw();
-
 
    public:
     /**
-         * @brief Construtor da classe MainHUD. A pontuação é inicializada em 0.
-         * @param target o alvo de pontuação que deve ser atingido para vencer
-         */
+	 * @brief Construtor da classe MainHUD. A pontuação é inicializada em 0.
+	 * @param parentWindow janela pai
+	 */
     MainHUD(WINDOW* parentWindow);
-
 };
