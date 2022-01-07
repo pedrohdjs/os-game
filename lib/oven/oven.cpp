@@ -17,7 +17,6 @@ void Oven::start() {
 }
 
 void Oven::setStatus(int newStatus) {
-    interface.clear();
     status = newStatus;
 }
 

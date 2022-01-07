@@ -8,7 +8,6 @@ Cooker::Cooker(int id, WINDOW* parentWindow) : interface{*this, id, parentWindow
 
 void Cooker::setStatus(int newStatus){
     status = newStatus;
-    interface.clear();
 }
 
 void Cooker::start() {
@@ -28,7 +27,7 @@ void Cooker::start() {
 void Cooker::ENGINE::logic() {
     switch (cooker.status) {
         case GameStats::BUSY:
-            cooker.progress += 0.02f;
+            cooker.progress += 0.05f;
             if (cooker.progress > 1.02f) {
                 cooker.setStatus( GameStats::WAITING);
                 findBestFitOven();
@@ -42,7 +41,7 @@ void Cooker::ENGINE::logic() {
             cooker.setStatus(GameStats::BUSY);
             break;
         case GameStats::RESTING:
-            cooker.progress += 0.05f;
+            cooker.progress += 0.1f;
             if (cooker.progress > 1.1f) {
                 cooker.setStatus(GameStats::AVAILABLE);
                 cooker.progress = 0;
@@ -85,7 +84,7 @@ void Cooker::ENGINE::keyboardHandler(char key) {
             default:
                 if (cooker.skill < (GameStats::Ovens[0]->engine.getMaxCapacity())) {
                     if (GameStats::updateNumberOfCookies((cooker.skill + 1) * -3)) {
-                        cooker.skill++;
+                        cooker.skill+=5;
                     }
                 }
                 break;
