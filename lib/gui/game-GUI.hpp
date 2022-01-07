@@ -2,48 +2,87 @@
 #include <ncurses.h>
 
 #include <chrono>
-#include <thread>
-#include <string>
-#include <vector>
 #include <sstream>
+#include <string>
+#include <thread>
+#include <vector>
 
+#include "../cooker/cooker.hpp"
+#include "../customers/customers.hpp"
+#include "../game-stats/game-stats.hpp"
+#include "../oven/oven.hpp"
 #include "./bordered-window.hpp"
 #include "./main-HUD.hpp"
-#include "../oven/oven.hpp"
-#include "../cooker/cooker.hpp"
-#include "../game-stats/game-stats.hpp"
-#include "../customers/customers.hpp"
-
 
 /**
  * @brief Representa e agrega todos os componentes visuais do jogo.
  */
 class GameGUI {
-    private:
-        BorderedWindow* mainWindow; // Janela principal
-        MainHUD* mainHUD; //HUD principal com informações de progresso
+   private:
+    BorderedWindow* mainWindow;  //Janela principal
+    MainHUD* mainHUD;            //HUD principal com informações de progresso
 
-        void refreshLoop();
-        void terminalSizeScreen();
+    /**
+	 * @brief Loop responsável por fazer refresh dos elementos visuais
+	 */
+    void refreshLoop();
 
-       public:
-        /**
-        * Construtor da janela do programa
-        * @param refreshRate indica quantas vezes por segundo a janela deve ser desenhada
-        * @param target indica o número de pontos que deve ser alcançado ao fim do jogo
-        */
-        GameGUI(int refreshRate);
-        
-        void refresh();
-        //Destrutor da janela
-        ~GameGUI();
+    /**
+	 * @brief Tela que mostra o tamanho atual da janela e o requerido
+	 */
+    void terminalSizeScreen();
 
-        //Inicializa a janela com o seu setup e começa a desenhar
-        void show();
-        void setup();
-        void endGameScreen();
-        void startGameScreen();
+    /**
+	 * @brief Espera uma entrada qualquer do usuário ignorando entradas anteriores
+	 */
+    void waitInput();
 
-        void keyboardHandler();
+   public:
+    /**
+	 * Construtor da janela do programa
+	 * @param refreshRate indica quantas vezes por segundo a janela deve ser desenhada
+	 */
+    GameGUI(int refreshRate);
 
+    /**
+     * @brief Libera a memória memória alocada
+     */
+    ~GameGUI();
+
+    /**
+     * @brief Inicializa rotina de desenhar na tela
+     */
+    void show();
+
+    /**
+	 * @brief Executa o setup de cada um dos elementos visuais
+	 */
+    void setup();
+
+    /**
+	 * @brief Executa o refresh de cada um dos elementos visuais
+	 */
+    void refresh();
+
+    /**
+	 * @brief Tela de fim de jogo
+	 */
+    void endGameScreen();
+
+    /**
+	 * @brief Tela de inicio de jogo
+	 */
+    void startGameScreen();
+
+    /**
+	 * @brief Entra num loop detectando o tamanho da tela e testando os requisitos minimos 
+	 * 
+	 */
+    void detectMinimumTerminalSize();
+
+    /**
+	 * @brief Escuta inputs do teclado e repassa para os outros elementos do jogo
+	 * 
+	 */
+    void keyboardHandler();
 };
