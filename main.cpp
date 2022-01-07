@@ -12,11 +12,6 @@ void killGame(int) {
     exit(0);
 }
 
-void resize(int) {
-    newGame->resize();
-}
-
-
 int main(int argc, char** argv) {
 
     newGame = new Game();
