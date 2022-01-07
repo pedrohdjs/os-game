@@ -61,7 +61,7 @@ void GameStats::customerArrival(int numberOfCustomers) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
     if (!GameStats::isRunning()) return;
 
-    numberOfCookies += 2*numberOfCustomers;
+    numberOfCookies -= numberOfCustomers;
 
     if (numberOfCookies <= -1 * target) {
         victory = false;

@@ -35,7 +35,8 @@ GameGUI::~GameGUI() {
 
 void GameGUI::show() {
     int cols, rows;
-
+    clear();
+    ::refresh();
     while (GameStats::CURRENT_WIDTH < GameStats::WINDOW_WIDTH || GameStats::CURRENT_HEIGHT < GameStats::WINDOW_HEIGHT) {
         terminalSizeScreen();
 
@@ -127,6 +128,8 @@ void GameGUI::refreshLoop() {
 
 void GameGUI::endGameScreen() {
     clear();
+    ::refresh();
+	
     std::stringstream message;
 
     wprintwc(stdscr, "=========== Fim de Jogo! ===========", GameStats::CURRENT_HEIGHT / 2 - 6, false);
@@ -174,7 +177,8 @@ void GameGUI::startGameScreen() {
     wprintwc(stdscr, "========== Thread Cookies ==========", GameStats::CURRENT_HEIGHT / 2 - 5, false);
     wprintwc(stdscr, "Finalmente o tão esperado dia chegou, você conseguiu abrir sua própria confeitaria!!", GameStats::CURRENT_HEIGHT / 2 - 3, false);
 
-    wprintwc(stdscr, "Contrate funcionários, compre novos fornos e tente atingir 1000 cookies antes que uma horda de clientes famintos ataque você!", GameStats::CURRENT_HEIGHT / 2 - 2, false);
+    wprintwc(stdscr, "Contrate funcionários, compre novos fornos e tente atingir 1000 cookies ", GameStats::CURRENT_HEIGHT / 2 - 2, false);
+    wprintwc(stdscr, "antes que uma horda de clientes famintos ataque você!", GameStats::CURRENT_HEIGHT / 2 - 1, false);
 
     wprintwc(stdscr, "============= Comandos =============", GameStats::CURRENT_HEIGHT / 2, false);
     wprintwc(stdscr, "Pressione 1, 2, 3, 4 para comprar e evoluir os fornos", GameStats::CURRENT_HEIGHT / 2 + 2, false);
