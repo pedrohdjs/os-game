@@ -43,7 +43,7 @@ bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
     if (!GameStats::isRunning()) return false;
 
     if (cookiesToBeAdded > 0) totalNumberOfCookies += cookiesToBeAdded;
-    if (cookiesToBeAdded + numberOfCookies >= 0) {
+    if (cookiesToBeAdded > 0 || cookiesToBeAdded + numberOfCookies >= 0) {
         numberOfCookies += cookiesToBeAdded;
 
         if (numberOfCookies >= target) {
