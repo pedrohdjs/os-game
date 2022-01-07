@@ -6,12 +6,11 @@ Game::Game() {
 
 void Game::run() {
     GameStats::start();
+    gui->startGameScreen();
     gui->show();
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     finish();
     gui->endGameScreen();
-    timeout(-1);
-    getch();
 }
 
 void Game::resize() {

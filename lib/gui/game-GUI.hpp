@@ -42,6 +42,7 @@ class GameGUI {
         void show();
         void setup();
         void endGameScreen();
+        void startGameScreen();
 
         void keyboardHandler();
 
