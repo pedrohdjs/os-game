@@ -113,7 +113,7 @@ void GameGUI::terminalSizeScreen() {
 
     wprintwc(stdscr, "Por favor redimensione seu terminal ou altere o tamanho da fonte!!", GameStats::CURRENT_HEIGHT / 2 - 1, false);
 
-    message << "Tamanho mínimo: " << GameStats::WINDOW_WIDTH << " X " << GameStats::WINDOW_HEIGHT;
+    message << "Tamanho mínimo (ideal): " << GameStats::WINDOW_WIDTH << " X " << GameStats::WINDOW_HEIGHT;
     wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2, false);
     message.str("");
 

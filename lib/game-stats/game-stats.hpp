@@ -16,7 +16,7 @@ class GameStats {
 
    public:
     // constantes do jogo
-    static const int WINDOW_WIDTH = 150;
+    static const int WINDOW_WIDTH = 154;
     static const int WINDOW_HEIGHT = 40;
 
     static const int NOT_PURCHASED = 0;

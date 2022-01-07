@@ -1,7 +1,7 @@
 #include "./main-HUD.hpp"
 
 MainHUD::MainHUD(WINDOW* parentWindow)
-    : BorderedWindow("", 7, GameStats::WINDOW_WIDTH / 2, GameStats::WINDOW_HEIGHT - 10, (GameStats::WINDOW_WIDTH / 2) / 2 - 2, parentWindow) {
+    : BorderedWindow("", 7, GameStats::WINDOW_WIDTH / 2, GameStats::WINDOW_HEIGHT - 10, (GameStats::WINDOW_WIDTH / 2) / 2, parentWindow) {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     width -= 2;
     height -= 2;
