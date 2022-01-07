@@ -1,7 +1,6 @@
 #include "./ncurses-util.hpp"
 
 void wprintwc(BorderedWindow* w, std::string s, int y, bool clearLine) {
-
     int width = getmaxx(w->window);
     int height = getmaxy(w->window);
     int stringSize = (int)s.size();
@@ -10,6 +9,7 @@ void wprintwc(BorderedWindow* w, std::string s, int y, bool clearLine) {
     if (clearLine) {
         wmove(w->window, y, 0);
         wclrtoeol(w->window);
+
         prefresh(w->window, 0, 0, w->startHeight, w->startWidth, height, width);
         doupdate();
     }
@@ -18,7 +18,6 @@ void wprintwc(BorderedWindow* w, std::string s, int y, bool clearLine) {
 }
 
 void wprintwc(WINDOW* w, std::string s, int y, bool clearLine) {
-
     int width = getmaxx(w);
     int height = getmaxy(w);
     int stringSize = (int)s.size();
@@ -27,6 +26,7 @@ void wprintwc(WINDOW* w, std::string s, int y, bool clearLine) {
     if (clearLine) {
         std::string clear(width - 2, 32);
         mvwprintw(w, y, 1, clear.c_str());
+
         wrefresh(w);
     }
 
