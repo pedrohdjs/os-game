@@ -1,3 +1,0 @@
-
-- Janela separada sem conteúdo apenas para receber os controles com wgetch
-- Classes concretas para a lógica que acessam classes da GUI, cada uma armazenando seu componente específico

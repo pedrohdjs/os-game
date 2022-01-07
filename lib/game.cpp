@@ -7,8 +7,11 @@ Game::Game() {
 void Game::run() {
     GameStats::start();
     gui->startGameScreen();
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
     gui->show();
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+	
     finish();
     gui->endGameScreen();
 }
