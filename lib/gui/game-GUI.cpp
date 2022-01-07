@@ -133,13 +133,13 @@ void GameGUI::endGameScreen() {
 
     if (GameStats::victory) {
         wprintwc(stdscr, "Parabéns você venceu!", GameStats::CURRENT_HEIGHT / 2 - 4, false);
-        wprintwc(stdscr, "Agora você comer todos os seus biscoitos! :)", GameStats::CURRENT_HEIGHT / 2 - 3, false);
+        wprintwc(stdscr, "Agora você pode comer todos os seus biscoitos! :)", GameStats::CURRENT_HEIGHT / 2 - 3, false);
     } else {
         wprintwc(stdscr, "Você perdeu", GameStats::CURRENT_HEIGHT / 2 - 4, false);
         wprintwc(stdscr, ":(", GameStats::CURRENT_HEIGHT / 2 - 3, false);
     }
 
-    wprintwc(stdscr, "Estatisticas:", GameStats::CURRENT_HEIGHT / 2 - 1, false);
+    wprintwc(stdscr, "Estatísticas:", GameStats::CURRENT_HEIGHT / 2 - 1, false);
 
     message << "Biscoitos (cozinheiros): " << GameStats::totalNumberOfCookies - GameStats::totalNumberOfCookiesUser;
     wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2 + 1, false);
@@ -179,7 +179,7 @@ void GameGUI::startGameScreen() {
     wprintwc(stdscr, "============= Comandos =============", GameStats::CURRENT_HEIGHT / 2, false);
     wprintwc(stdscr, "Pressione 1, 2, 3, 4 para comprar e evoluir os fornos", GameStats::CURRENT_HEIGHT / 2 + 2, false);
     wprintwc(stdscr, "Pressione q, w, e, r para contratar e melhorar funcionários", GameStats::CURRENT_HEIGHT / 2 + 3, false);
-    wprintwc(stdscr, "Pressione ESPACE para produzir 1 cookie por vez", GameStats::CURRENT_HEIGHT / 2 + 4, false);
+    wprintwc(stdscr, "Pressione SPACE para produzir 1 cookie por vez", GameStats::CURRENT_HEIGHT / 2 + 4, false);
     wprintwc(stdscr, "====================================", GameStats::CURRENT_HEIGHT / 2 + 6, false);
     wprintwc(stdscr, "Pressione qualquer tecla para continuar", GameStats::CURRENT_HEIGHT / 2 + 8, false);
 
