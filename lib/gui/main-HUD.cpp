@@ -73,15 +73,15 @@ void MainHUD::drawProgressBar() {
 void MainHUD::drawScore() {
     std::stringstream s;
     if (GameStats::getNumberOfCookies() >= 0) {
-        s << "Cookies:" << GameStats::getNumberOfCookies();
+        s << "Cookies: " << GameStats::getNumberOfCookies();
     } else {
         s << "Clientes esperando: " << abs(GameStats::getNumberOfCookies());
     }
-    wprintwc(window, s.str().c_str(), 3, false);
+    wprintwc(window, s.str().c_str(), 3, true);
 }
 
 void MainHUD::drawDemand() {
     std::string s;
     s = " Clientes por segundo: " + std::to_string(Customers::customersRate);
-    wprintwc(this, s, 2, false);
+    wprintwc(this, s, 2, true);
 }
