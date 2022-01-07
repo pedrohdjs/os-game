@@ -28,7 +28,7 @@ class Cooker {
         Cooker& cooker;
 
        public:
-        GUI(Cooker& cooker, int id);
+        GUI(Cooker& cooker, int id, WINDOW* parentWindow);
         void draw();
         void setup();
         void drawInfo();
@@ -56,6 +56,6 @@ class Cooker {
          * @brief Construtor da classe Cooker. O funcionário é inicializado como não comprado, a não ser que tenha ID 1.
          * @param id Identificador do funcionário.
          */
-    Cooker(int id);
+    Cooker(int id, WINDOW* parentWindow);
     void start();
 };

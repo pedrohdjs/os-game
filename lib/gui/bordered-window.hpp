@@ -13,8 +13,6 @@
 class BorderedWindow : public Window {
     protected:
 
-        std::string title; //O título da janela
-        WINDOW* window; 
         static std::mutex drawerMutex;
         //Desenha a parte estática da janela
 
@@ -23,6 +21,7 @@ class BorderedWindow : public Window {
 
 
     public:
+        WINDOW* window; 
         /**
          * Construtor da janela
          * @param title titulo da janela
@@ -32,7 +31,9 @@ class BorderedWindow : public Window {
          * @param startWidth posição Y onde a janela será desenhada
          */
         BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth);
+        BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth, WINDOW* parentWindow);
 
+        std::string title; //O título da janela
         //Destrutor da janela
         ~BorderedWindow();
 

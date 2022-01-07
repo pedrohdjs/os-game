@@ -3,10 +3,15 @@
 std::mutex BorderedWindow::drawerMutex;
 
 BorderedWindow::BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth)
-    : Window(height, width, startHeight, startWidth), title{title} {
+    : Window(height, width, 0, 0), title{title} {
+    window = newpad(height, width);  //cria as bordas
+    //setup();
+}
 
-    window = newwin(height, width, startHeight, startWidth);               //cria as bordas
-    setup();
+BorderedWindow::BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth, WINDOW* parentWindow)
+    : Window(height, width, startHeight, startWidth), title{title} {
+    window = subpad(parentWindow, height, width, startHeight, startWidth);  //cria as bordas
+    //setup();
 }
 
 BorderedWindow::~BorderedWindow() {
@@ -16,7 +21,7 @@ BorderedWindow::~BorderedWindow() {
 void BorderedWindow::refresh() {
     std::lock_guard<std::mutex> lock(drawerMutex);
     draw();
-    wnoutrefresh(window);
+    pnoutrefresh(window, 0, 0, startHeight, startWidth, height, width);
 }
 
 void BorderedWindow::setup() {

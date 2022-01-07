@@ -1,7 +1,7 @@
 #include "./window.hpp"
 
-Window::Window(int height, int width, int startHeight, int startWidth) : width{width},
-                                                                         height{height} {
+Window::Window(int height, int width, int startHeight, int startWidth)
+    : width{width}, height{height}, startHeight{startHeight}, startWidth{startWidth} {
     window = newwin(height, width, startHeight, startWidth);  //cria a janela
 }
 
@@ -11,7 +11,6 @@ Window::~Window() {
 
 void Window::refresh() {
     draw();
-    wrefresh(window);
 }
 
 WINDOW* Window::getWindow() {

@@ -11,9 +11,6 @@
 class Window {
     protected:
         WINDOW* window; //Janela com o conteúdo da janela
-        int width; //Largura da janela
-        int height; //Altura da janela
-
         /**
          * Configuração inicial da janela, com desenho de partes estáticas.
          * Deve ser sobreescrita em janelas mais específicas.
@@ -33,6 +30,11 @@ class Window {
          * @param startWidth posição Y onde a janela será desenhada
          */
         Window(int height, int width, int startHeight, int startWidth);
+        
+		int width; //Largura da janela
+        int height; //Altura da janela
+        int startWidth;
+        int startHeight;
 
         //Destrutor da janela
         ~Window();

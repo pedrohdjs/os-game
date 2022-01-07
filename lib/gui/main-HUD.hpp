@@ -28,6 +28,6 @@ class MainHUD : public BorderedWindow {
          * @brief Construtor da classe MainHUD. A pontuação é inicializada em 0.
          * @param target o alvo de pontuação que deve ser atingido para vencer
          */
-    MainHUD();
+    MainHUD(WINDOW* parentWindow);
 
 };

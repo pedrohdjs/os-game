@@ -1,8 +1,8 @@
 #include "./cooker.hpp"
 
-Cooker::GUI::GUI(Cooker& cooker, int id)
+Cooker::GUI::GUI(Cooker& cooker, int id, WINDOW* parentWindow)
     : BorderedWindow(std::string("Cozinheiro " + std::to_string(id)), 11, 30,
-                     18, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2)),
+                     18, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2), parentWindow),
       cooker{cooker} {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
 

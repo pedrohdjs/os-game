@@ -1,8 +1,8 @@
 #include "./oven.hpp"
 
 
-Oven::GUI::GUI(Oven& oven, int id)
-    : BorderedWindow(std::string("Forno " + std::to_string(id)), 15, 30, 2, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2)),
+Oven::GUI::GUI(Oven& oven, int id, WINDOW* parentWindow)
+    : BorderedWindow(std::string("Forno " + std::to_string(id)), 15, 30, 2, 35 * (id - 1) + ((GameStats::WINDOW_WIDTH - 35 * 4) / 2), parentWindow),
       oven{oven} {
     //Usa apenas a largura e altura da janela para cálculos, ignorando a da borda
     width -= 2;

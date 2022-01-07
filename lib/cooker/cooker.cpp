@@ -2,7 +2,7 @@
 
 std::mutex Cooker::goingToBake;
 
-Cooker::Cooker(int id) : interface{*this, id}, engine{*this}, id{id}, skill{5} {
+Cooker::Cooker(int id, WINDOW* parentWindow) : interface{*this, id, parentWindow}, engine{*this}, id{id}, skill{5} {
     setStatus((id == 1) ? GameStats::AVAILABLE : GameStats::NOT_PURCHASED);
 }
 

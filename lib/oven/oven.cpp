@@ -1,6 +1,6 @@
 #include "./oven.hpp"
 
-Oven::Oven(int id) : interface{*this, id}, engine{*this}, id{id}, capacity{10}, progress{0} {
+Oven::Oven(int id, WINDOW* parentWindow) : interface{*this, id, parentWindow}, engine{*this}, id{id}, capacity{10}, progress{0} {
     setStatus((id == 1) ? GameStats::AVAILABLE : GameStats::NOT_PURCHASED);
 }
 

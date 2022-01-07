@@ -24,7 +24,7 @@ class Oven {
         Oven& oven;
 
        public:
-        GUI(Oven& oven, int id);
+        GUI(Oven& oven, int id, WINDOW* parentWindow);
         void draw();
         void drawInfo();
         void drawSmoke();
@@ -58,6 +58,6 @@ class Oven {
          * 
          * @param id Identificador do forno.
          */
-    Oven(int id);
+    Oven(int id, WINDOW* parentWindow);
     void start();
 };
