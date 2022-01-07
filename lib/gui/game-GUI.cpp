@@ -8,16 +8,16 @@ GameGUI::GameGUI(int refreshRate) {
     curs_set(0);
     noecho();
     clear();
-    //nodelay(stdscr, true);
+
     //Inicializa a janela principal
     mainWindow = new BorderedWindow("Jogo de SO", GameStats::WINDOW_HEIGHT - 1, GameStats::WINDOW_WIDTH - 1, 0, 0);
 
     //Inicializa os outros componentes
-    mainHUD = new MainHUD();
+    mainHUD = new MainHUD(mainWindow->window);
 
     for (int i = 1; i <= 4; i++) {
-        GameStats::Ovens.push_back(new Oven(i));
-        GameStats::Cooks.push_back(new Cooker(i));
+        GameStats::Ovens.push_back(new Oven(i, mainWindow->window));
+        GameStats::Cooks.push_back(new Cooker(i, mainWindow->window));
     }
 }
 
@@ -43,6 +43,7 @@ void GameGUI::show() {
         std::this_thread::sleep_for(std::chrono::milliseconds(GameStats::getFrameRateDelay()));
     }
 
+    Customers::start();
     for (auto& cook : GameStats::Cooks) {
         cook->start();
     }
@@ -75,7 +76,7 @@ void GameGUI::refresh() {
 }
 
 void GameGUI::setup() {
-    //mainWindow->setup();
+    mainWindow->setup();
     mainHUD->setup();
 
     for (auto& cook : GameStats::Cooks) {
@@ -103,7 +104,6 @@ void GameGUI::terminalSizeScreen() {
 }
 
 void GameGUI::refreshLoop() {
-    clear();
     while (GameStats::isRunning()) {
         GameStats::detectTerminalResize();
 
@@ -117,14 +117,67 @@ void GameGUI::refreshLoop() {
         std::this_thread::sleep_for(std::chrono::milliseconds(GameStats::getFrameRateDelay()));
     }
 
+    setup();
+    refresh();
+    doupdate();
+
     GameStats::removeThread();
+}
+
+void GameGUI::endGameScreen() {
+    clear();
+    std::stringstream message;
+
+    wprintwc(stdscr, "Fim de Jogo!", GameStats::CURRENT_HEIGHT / 2 - 5, false);
+
+    if (GameStats::victory) {
+        wprintwc(stdscr, "Parabéns você venceu!", GameStats::CURRENT_HEIGHT / 2 - 3, false);
+        wprintwc(stdscr, "Agora você comer todos os seus biscoitos! :)", GameStats::CURRENT_HEIGHT / 2 - 2, false);
+    } else {
+        wprintwc(stdscr, "Você perdeu", GameStats::CURRENT_HEIGHT / 2 - 3, false);
+        wprintwc(stdscr, ":(", GameStats::CURRENT_HEIGHT / 2 - 2, false);
+    }
+
+    wprintwc(stdscr, "Estatisticas:", GameStats::CURRENT_HEIGHT / 2, false);
+
+    message << "Biscoitos (cozinheiros): " << GameStats::totalNumberOfCookies - GameStats::totalNumberOfCookiesUser;
+    wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2 + 1, false);
+    message.str("");
+
+    message << "Biscoitos \n (você): " << GameStats::totalNumberOfCookiesUser;
+    wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2 + 2, false);
+    message.str("");
+
+    int numberOfCustomers =
+        GameStats::victory
+            ? GameStats::totalNumberOfCustomers
+            : GameStats::totalNumberOfCustomers - 1000;
+
+    message << "Clientes satisfeitos: " << numberOfCustomers;
+    wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2 + 3, false);
+    message.str("");
+
+    message << "Pressione qualquer tecla para sair";
+    wprintwc(stdscr, message.str(), GameStats::CURRENT_HEIGHT / 2 + 5, false);
+    message.str("");
+
+    wrefresh(stdscr);
 }
 
 void GameGUI::keyboardHandler() {
     int key = '\0';
+    char pastkey = '\0';
+    MEVENT event;
     while (GameStats::isRunning()) {
-        timeout(100);
+        timeout(10);
         key = getch();
+
+        if (key == ' ' && pastkey != ' ') {
+            flushinp();
+            GameStats::updateNumberOfCookies(1);
+            GameStats::totalNumberOfCookiesUser++;
+        }
+
         if (key != ERR) {
             for (auto& oven : GameStats::Ovens) {
                 oven->engine.keyboardHandler(key);
@@ -133,12 +186,11 @@ void GameGUI::keyboardHandler() {
             for (auto& cook : GameStats::Cooks) {
                 cook->engine.keyboardHandler(key);
             }
-
-            if (key == KEY_RESIZE) {
-            }
         }
+        flushinp();
         //std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
+    flushinp();
     GameStats::removeThread();
 }

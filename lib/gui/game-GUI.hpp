@@ -14,6 +14,7 @@
 #include "../game-stats/game-stats.hpp"
 #include "../customers/customers.hpp"
 
+
 /**
  * @brief Representa e agrega todos os componentes visuais do jogo.
  */
@@ -40,6 +41,7 @@ class GameGUI {
         //Inicializa a janela com o seu setup e começa a desenhar
         void show();
         void setup();
+        void endGameScreen();
 
         void keyboardHandler();
 

@@ -1,6 +1,9 @@
 #include "game-stats.hpp"
 
 int GameStats::numberOfCookies = 0;
+int GameStats::totalNumberOfCustomers = 0;
+int GameStats::totalNumberOfCookies = 0;
+int GameStats::totalNumberOfCookiesUser = 0;
 int GameStats::frameRate = 7;
 int GameStats::frameRateDelay = 1000 / 7;
 int GameStats::target = 1000;
@@ -39,6 +42,7 @@ bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
     if (!GameStats::isRunning()) return false;
 
+    if (cookiesToBeAdded > 0) totalNumberOfCookies += cookiesToBeAdded;
     if (cookiesToBeAdded + numberOfCookies >= 0) {
         numberOfCookies += cookiesToBeAdded;
 
@@ -53,11 +57,11 @@ bool GameStats::updateNumberOfCookies(int cookiesToBeAdded) {
     return false;
 }
 
-void GameStats::customerArrival(int numberOfClients) {
+void GameStats::customerArrival(int numberOfCustomers) {
     std::lock_guard<std::mutex> lock(cookiesMutex);
     if (!GameStats::isRunning()) return;
 
-    numberOfCookies -= numberOfClients;
+    numberOfCookies -= 30*numberOfCustomers;
 
     if (numberOfCookies <= -1 * target) {
         victory = false;

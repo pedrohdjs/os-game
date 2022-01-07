@@ -31,6 +31,9 @@ class GameStats {
     static int target;
 	
     static bool victory;
+    static int totalNumberOfCookies;
+    static int totalNumberOfCookiesUser;
+    static int totalNumberOfCustomers;
 
 
     static std::vector<class Oven*> Ovens;
@@ -44,7 +47,7 @@ class GameStats {
     
     static int getNumberOfCookies();
     static bool updateNumberOfCookies(int cookiesToBeAdded);
-    static void customerArrival(int numberOfClients);
+    static void customerArrival(int numberOfCustomers);
 
     static void start();
     static bool isRunning();

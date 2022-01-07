@@ -25,6 +25,7 @@ void Customers::increaseRate() {
         while (GameStats::isRunning()) {
             customerMutex.lock();
             GameStats::customerArrival(Customers::customersRate);
+            GameStats::totalNumberOfCustomers += Customers::customersRate;
             customerMutex.unlock();
             std::this_thread::sleep_for(std::chrono::milliseconds(increaseTime));
         }
