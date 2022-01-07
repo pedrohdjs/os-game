@@ -79,6 +79,6 @@ void MainHUD::drawScore() {
 
 void MainHUD::drawDemand() {
     std::string s;
-    s = " Clientes por segundo: " + std::to_string(Customers::customersRate);
+    s = " Clientes por segundo: " + std::to_string(Customers::getCustomersRate());
     wprintwc(this, s, 2, true);
 }
