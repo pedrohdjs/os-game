@@ -10,8 +10,10 @@ void Oven::start() {
             engine.logic();
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
+
         GameStats::removeThread();
     });
+
     customerRateThread.detach();
     GameStats::addThread();
 }
@@ -29,31 +31,36 @@ int Oven::ENGINE::getCapacity() {
 }
 
 int Oven::ENGINE::getMaxCapacity() {
-    int max = oven.capacity;
+    int max = GameStats::Ovens[0]->engine.getCapacity();
+    //percorre todos os fornos
     for (auto oven : GameStats::Ovens) {
         if (oven->engine.getStatus() && (max <= oven->engine.getCapacity())) {
             max = oven->engine.getCapacity();
         }
     }
+
     return max;
 }
 
 void Oven::ENGINE::keyboardHandler(char key) {
     char actionKeys[4] = {'1', '2', '3', '4'};
+
     if (key == actionKeys[oven.id - 1]) {
         switch (oven.status) {
             case GameStats::NOT_PURCHASED:
+
                 if (GameStats::updateNumberOfCookies((oven.id - 1) * -10)) {
                     oven.setStatus(GameStats::AVAILABLE);
                 }
+
                 break;
             default:
+
                 if (GameStats::updateNumberOfCookies(-10)) {
                     oven.capacity += 5;
                 }
+
                 break;
-        }
-        if ((oven.status == GameStats::NOT_PURCHASED) && (GameStats::updateNumberOfCookies((oven.id - 1) * -10))) {
         }
     }
 }
@@ -69,8 +76,8 @@ int Oven::ENGINE::canBake(int cookiesToBake) {
 
 void Oven::ENGINE::logic() {
     if (oven.status == GameStats::BUSY) {
-        oven.progress += 0.03;
-        if (oven.progress > 1.02) {
+        oven.progress += 0.01;
+        if (oven.progress >= 1.0) {
             GameStats::updateNumberOfCookies(oven.currBakingCookies);
             oven.progress = 0;
             oven.currBakingCookies = 0;
