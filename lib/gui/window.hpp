@@ -16,10 +16,14 @@ class Window {
 	 * Deve ser sobreescrita em janelas mais específicas.
 	 */
 
-    //Desenha de partes estaticas da janela
+	/**
+     * @brief Desenha de partes estáticas da janela
+	 */
     virtual void setup() = 0;
 
-    //Desenha de partes dinâmicas da janela
+	/**
+     * @brief Desenha de partes dinâmicas da janela
+	 */
     virtual void draw() = 0;
 
    public:

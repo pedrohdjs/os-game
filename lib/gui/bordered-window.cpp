@@ -1,17 +1,16 @@
 #include "./bordered-window.hpp"
 
+// inicialização dos elementos estáticos
 std::mutex BorderedWindow::drawerMutex;
 
 BorderedWindow::BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth)
     : Window(height, width, 0, 0), title{title} {
-    window = newpad(height, width);  //cria as bordas
-    //setup();
+    window = newpad(height, width); 
 }
 
 BorderedWindow::BorderedWindow(std::string title, int height, int width, int startHeight, int startWidth, WINDOW* parentWindow)
     : Window(height, width, startHeight, startWidth), title{title} {
-    window = subpad(parentWindow, height, width, startHeight, startWidth);  //cria as bordas
-    //setup();
+    window = subpad(parentWindow, height, width, startHeight, startWidth); 
 }
 
 BorderedWindow::~BorderedWindow() {
